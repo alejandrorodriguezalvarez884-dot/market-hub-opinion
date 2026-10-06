@@ -18,10 +18,10 @@ El usuario quiere una sección de opinión en Market Hub (https://themarkethub.a
 | Hecho | Pendiente |
 |---|---|
 | Formato de artículo (un Markdown con sus datos arriba) y su validador: `src/marketopinion/articles.py`, `make check`. 10 tests en verde | |
-| Publicación: `make publish` escribe en el Firestore del portal (`opinion/{slug}` y `opinion_state/front`) con la sesión de `gcloud` del usuario; `make preview` los deja donde los lee un portal en local | **No se ha publicado nada todavía**: falta el visto bueno del usuario y desplegar el portal con la pestaña |
+| Publicación: `make publish` escribe en el Firestore del portal (`opinion/{slug}` y `opinion_state/front`) con la sesión de `gcloud` del usuario; `make preview` los deja donde los lee un portal en local. **Los seis primeros están publicados** (2026-10-06) y se ven en https://themarkethub.app/opinion/ | |
 | Skill `update-opinion` (`.claude/skills/update-opinion/SKILL.md`): ver qué hay, reunir material, elegir, escribir, comprobar, publicar, commitear y contar | Probarla en una sesión nueva (los seis primeros se escribieron en la sesión que la creó) |
 | **Seis artículos iniciales** (2026-10-06), todos a partir de noticias del portal y de sus documentos: el mercado laboral parado (Analysis), el consumidor que gasta lo que no ingresa (Column), la previsión de AbbVie y sus cargos por compras de I+D (Explainer), la escisión de Vylor y sus seis acuerdos (Explainer), el adelanto de resultados de Apollo y la cifra anualizada (Column) y leer el 8-K antes que el titular (Column) | |
-| Repo creado en local, con su commit inicial | **Crear el repo en GitHub** (lo tiene que hacer el usuario, o dar permiso a la cuenta con sesión en el equipo) y añadirlo como submódulo del workspace `market-hub` |
+| Repo en GitHub (`alejandrorodriguezalvarez884-dot/market-hub-opinion`), submódulo del workspace `market-hub` | |
 
 ## Cómo está hecho
 
@@ -40,7 +40,7 @@ El usuario quiere una sección de opinión en Market Hub (https://themarkethub.a
 
 ## Siguientes pasos
 
-1. Que el usuario lea los seis artículos (en local: `make preview` y abrir el portal).
-2. Desplegar el portal y `make publish` aquí.
-3. Crear el repo en GitHub, `git remote add origin …`, `git push -u origin main`, y en el
-   workspace `git submodule add -b main <url> market-hub-opinion`.
+1. Usar la skill en una sesión nueva: `/update-opinion 3`, y ver que el ciclo entero funciona.
+2. Decidir si los artículos llevan alguna indicación de que están escritos con IA (el usuario
+   prefirió no decir en la web cómo está hecha; el Reglamento europeo de IA lo pide para texto
+   que informa al público, salvo revisión humana con responsabilidad editorial).
