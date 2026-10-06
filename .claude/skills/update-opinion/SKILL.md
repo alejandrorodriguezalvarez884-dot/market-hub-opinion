@@ -1,12 +1,13 @@
 ---
 name: update-opinion
-description: Write new opinion articles for Market Hub from the day's news and other sources, check them, publish them to the portal and commit them. Use when the user asks to update the opinion section, to add opinion articles, or says something like "actualiza la opinión" or "añade 3 artículos". The argument is how many articles to write (and, optionally, what about).
+description: Write new opinion articles for Market Hub from the day's news and other sources, draw the cover of each, check them, publish them to the portal and commit them. Use when the user asks to update the opinion section, to add opinion articles, or says something like "actualiza la opinión" or "añade 3 artículos". The argument is how many articles to write (and, optionally, what about).
 ---
 
 # Update the opinion section
 
 You are the writer of Market Hub's opinion section. Each run adds new articles to
-`articles/` in the `market-hub-opinion` repo, publishes them and commits them. The user says how
+`articles/` in the `market-hub-opinion` repo, each with a cover you draw, publishes them and
+commits them. The user says how
 many; if they do not, write three. If they name subjects, write about those.
 
 Work from the root of the `market-hub-opinion` repo (in the workspace it is the
@@ -84,25 +85,77 @@ What an article never does:
 - It never reproduces someone else's text beyond a short quotation with its source.
 - It does not say how it was written.
 
-## 5. Check, publish, commit
+## 5. Draw each article's cover
+
+Every article is published with a picture, and you draw it yourself, here, as code: an SVG or a
+small HTML page in `covers/src/<slug>.svg` (or `.html`), which `make covers` turns into
+`covers/<slug>.jpg` with the Chrome on this machine. No image service, no model on the network,
+no picture taken from anywhere: the drawing is yours, line by line.
+
+The section should look like a place where many people post, each with their own hand. So **no
+two covers in a row share a style**:
+
+- Look at the last six pictures in `covers/` (open the JPEGs) and at the comment on top of their
+  drawings in `covers/src/`, which names the style of each. Pick, for each new article, a style
+  none of them used. Among those already used once: cut paper, blueprint, two-colour riso print,
+  constructivist poster, pixel art, ink and wash. Others to reach for: linocut, isometric
+  diagram, a chart turned into a landscape, stained glass, a map, a stamp, embroidery, chalk on a
+  board, a comic panel, neon sign, woodblock, collage of ticker tape, a child's crayon, a
+  schematic, a low-poly scene, Bauhaus shapes, a receipt, a board game. Invent more.
+- The picture carries the article's *argument*, as a metaphor someone would get in two seconds:
+  not an illustration of its subject, and never a stock chart with an arrow.
+- Give each its own palette, three to five colours. Texture is what stops a vector drawing
+  looking like clip art: paper grain, ink that misses, a print out of register
+  (`feTurbulence`, `feDisplacementMap`, blend modes, patterns).
+
+What a drawing is, so that it renders:
+
+- SVG: `viewBox="0 0 1600 900"`, no `width` or `height`. HTML: a page that fills its window, 16:9.
+  One file, nothing loaded from the network, system fonts only. A page that draws with a script
+  may set `window.coverReady` to a promise.
+- Start the file with a comment that says the style and what it shows.
+- Words in a picture: few or none, and nothing that states a fact the article does not. Never a
+  real logo, a real person's face or a real brand's look. A company is told by what it does.
+- No arrows up or down, no red-and-green verdicts, nothing that reads as advice.
+
+Then:
 
 ```bash
-make check      # every article must pass; fix what it names
-make publish    # writes the articles to the portal: they are live a minute later
+make covers                 # renders the drawings that are new; ONLY=<slug> draws one again
+```
+
+**Look at every picture you made** (open `covers/<slug>.jpg`). Text that is cut or covered, a
+shape that fell outside the frame, a filter that turned everything to mud: fix the drawing and
+render again, until you would be glad to have posted it. Two passes is normal.
+
+Last, add to the article's data the line that says what the picture shows, for a reader who
+cannot see it (20 to 200 characters, a description and not a caption):
+
+```
+cover: A paper cut-out of a factory torn in two, the halves still tied by threads.
+```
+
+## 6. Check, publish, commit
+
+```bash
+make check      # every article must pass, and have its cover; fix what it names
+make publish    # writes the articles and their covers to the portal: they are live a minute later
 ```
 
 `make publish` uses the user's `gcloud` session. If it fails for lack of credentials, say so and
 stop: do not look for another way in.
 
 Then verify one of the new articles is live
-(`curl -s "https://themarkethub.app/api/public/opinion" | head -c 600`), commit the new files with
-a message that names them, and push.
+(`curl -s "https://themarkethub.app/api/public/opinion" | head -c 600`; its card has a `cover`),
+commit the new files (the articles, the drawings and the pictures) with a message that names
+them, and push.
 
-Update "Dónde estamos" in `docs/HANDOFF.md`: the date, how many articles there are, and the
-subjects covered in this run.
+Update "Dónde estamos" in `docs/HANDOFF.md`: the date, how many articles there are, the
+subjects covered in this run and the styles their covers used.
 
-## 6. Tell the user
+## 7. Tell the user
 
-In Spanish, briefly: the title of each new article with one line on its argument, its address on
+In Spanish, briefly: the title of each new article with one line on its argument and the style of
+its cover, its address on
 the portal (`https://themarkethub.app/opinion/article/?slug=<slug>`), and anything you were not
 sure of. If a subject they asked for had no solid source, say that you did not write it and why.

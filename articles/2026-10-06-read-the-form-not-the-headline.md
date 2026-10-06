@@ -5,6 +5,7 @@ kind: Column
 tags: Markets, Filings
 tickers: VYLR, APO, ABBV
 published: 2026-10-06T09:20:00Z
+cover: A poster in red and black: a struck-through headline, and a magnifying glass over the items of a Form 8-K.
 sources:
   - Vylor Inc. becomes independent company through separation from Corteva (Market Hub) | /news/article/?id=sec-0001193125-26-414335
   - Apollo Global Management reports third-quarter alternative net investment income of $375 million (Market Hub) | /news/article/?id=sec-0001858681-26-000054

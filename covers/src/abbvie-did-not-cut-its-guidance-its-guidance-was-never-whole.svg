@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="'Courier New', Courier, monospace">
+  <!-- A blueprint: a capsule drawn in section, one part of it never filled in. -->
+  <defs>
+    <pattern id="fine" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#7fb2e0" stroke-opacity="0.16" stroke-width="1"/></pattern>
+    <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="url(#fine)"/><path d="M100 0H0V100" fill="none" stroke="#9cc6ee" stroke-opacity="0.3" stroke-width="1.4"/></pattern>
+    <pattern id="hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="16" stroke="#e8f3ff" stroke-opacity="0.75" stroke-width="2"/></pattern>
+    <radialGradient id="fold" cx="50%" cy="45%" r="75%"><stop offset="0" stop-color="#1b4f8f"/><stop offset="1" stop-color="#0c2a52"/></radialGradient>
+    <filter id="chalk"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="1.6"/></filter>
+    <marker id="arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M0 1.5L11 6 0 10.5Z" fill="#e8f3ff"/></marker>
+    <clipPath id="filled"><rect x="250" y="250" width="760" height="360"/></clipPath>
+  </defs>
+  <rect width="1600" height="900" fill="url(#fold)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <!-- the folds of a sheet that has been opened many times -->
+  <g stroke="#06203f" stroke-opacity="0.35" stroke-width="3"><line x1="533" y1="0" x2="533" y2="900"/><line x1="1066" y1="0" x2="1066" y2="900"/><line x1="0" y1="450" x2="1600" y2="450"/></g>
+  <rect x="38" y="38" width="1524" height="824" fill="none" stroke="#e8f3ff" stroke-width="3"/>
+  <rect x="50" y="50" width="1500" height="800" fill="none" stroke="#e8f3ff" stroke-opacity="0.5" stroke-width="1"/>
+
+  <g filter="url(#chalk)" fill="none" stroke="#e8f3ff" stroke-linecap="round">
+    <!-- the part that was forecast: drawn solid, and hatched -->
+    <g clip-path="url(#filled)">
+      <rect x="270" y="270" width="1060" height="320" rx="160" fill="url(#hatch)" stroke-width="5"/>
+    </g>
+    <line x1="1010" y1="270" x2="1010" y2="590" stroke-width="5"/>
+    <!-- the part that was never in it: an outline of dashes, and nothing inside -->
+    <path d="M1010 270H1170a160 160 0 0 1 0 320H1010" stroke-width="4" stroke-dasharray="18 14"/>
+    <!-- centre lines -->
+    <line x1="200" y1="430" x2="1400" y2="430" stroke-width="1.6" stroke-dasharray="40 10 6 10" stroke-opacity="0.8"/>
+    <line x1="640" y1="210" x2="640" y2="650" stroke-width="1.6" stroke-dasharray="40 10 6 10" stroke-opacity="0.8"/>
+    <!-- the band round the middle -->
+    <line x1="620" y1="270" x2="620" y2="590" stroke-width="3"/><line x1="660" y1="270" x2="660" y2="590" stroke-width="3"/>
+    <!-- the measures above -->
+    <line x1="270" y1="250" x2="270" y2="150" stroke-width="1.6"/><line x1="1010" y1="250" x2="1010" y2="150" stroke-width="1.6"/><line x1="1330" y1="410" x2="1330" y2="150" stroke-width="1.6"/>
+    <line x1="278" y1="172" x2="1002" y2="172" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <line x1="1018" y1="172" x2="1322" y2="172" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <!-- the measure at the side -->
+    <line x1="250" y1="270" x2="150" y2="270" stroke-width="1.6"/><line x1="250" y1="590" x2="150" y2="590" stroke-width="1.6"/>
+    <line x1="172" y1="278" x2="172" y2="582" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <!-- a detail, called out -->
+    <circle cx="1010" cy="590" r="46" stroke-width="2" stroke-dasharray="6 6"/>
+    <path d="M1042 624L1150 720H1290" stroke-width="2"/>
+    <circle cx="1170" cy="430" r="7" fill="#e8f3ff" stroke="none"/>
+    <path d="M1170 430L1290 346H1420" stroke-width="2"/>
+  </g>
+
+  <g fill="#e8f3ff" font-size="25" letter-spacing="3">
+    <text x="640" y="150" text-anchor="middle">AS FORECAST</text>
+    <text x="1170" y="150" text-anchor="middle">LEFT OUT</text>
+    <text x="1296" y="336" font-size="21">A</text>
+    <text x="1158" y="710" font-size="21">B</text>
+    <text x="150" y="434" font-size="21" text-anchor="middle" transform="rotate(-90 150 434)">ONE YEAR</text>
+  </g>
+  <!-- the title block -->
+  <g fill="none" stroke="#e8f3ff" stroke-width="2"><rect x="1010" y="742" width="540" height="108"/><line x1="1010" y1="796" x2="1550" y2="796"/><line x1="1370" y1="796" x2="1370" y2="850"/></g>
+  <g fill="#e8f3ff" font-size="22" letter-spacing="2">
+    <text x="1030" y="778">FIG. 1  A FORECAST, IN SECTION</text>
+    <text x="1030" y="832" font-size="18">A: NOT YET INCURRED</text>
+    <text x="1388" y="832" font-size="18">SCALE 1:1</text>
+  </g>
+  <g fill="#e8f3ff" font-size="18" letter-spacing="2" fill-opacity="0.85">
+    <text x="70" y="806">B: THE LINE IS WHERE THE FORECAST STOPS,</text>
+    <text x="70" y="832">   NOT WHERE THE COSTS DO.</text>
+  </g>
+</svg>

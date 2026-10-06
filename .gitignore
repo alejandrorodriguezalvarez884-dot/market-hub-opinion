@@ -2,6 +2,9 @@
 .env
 *.key
 
+# The tool that renders the covers
+node_modules/
+
 # Python
 __pycache__/
 *.pyc

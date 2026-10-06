@@ -1,0 +1,12 @@
+{
+  "name": "marketopinion-covers",
+  "private": true,
+  "type": "module",
+  "description": "Turns the drawing of each article's cover into the picture the portal shows, with the Chrome on this machine.",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.55.0"
+  }
+}

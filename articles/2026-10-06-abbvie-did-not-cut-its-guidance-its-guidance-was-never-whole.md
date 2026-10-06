@@ -5,6 +5,7 @@ kind: Explainer
 tags: Healthcare, Guidance
 tickers: ABBV
 published: 2026-10-06T08:35:00Z
+cover: A blueprint of a capsule in section: most of it drawn solid and hatched, the last part only an outline of dashes.
 sources:
   - AbbVie lowers 2026 earnings guidance due to $216M IPR&D expense (Market Hub) | /news/article/?id=sec-0001551152-26-000030
   - AbbVie Form 8-K of October 5, 2026, with its guidance table (SEC) | https://www.sec.gov/Archives/edgar/data/1551152/000155115226000030/0001551152-26-000030-index.htm

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Ink and wash on paper: people waiting on a platform, a clock, and no train. One red mark. -->
+  <defs>
+    <filter id="paper" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.4" numOctaves="3" seed="9" result="fibre"/>
+      <feColorMatrix in="fibre" type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.48  0 0 0 0 0.36  0 0 0 -0.9 0.5" result="fibres"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2" result="grain"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0.4  0 0 0 0 0.34  0 0 0 0 0.26  0 0 0 -0.7 0.42" result="specks"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="fibres"/><feMergeNode in="specks"/></feMerge>
+    </filter>
+    <!-- a brush: its edge wanders, and the ink is thin in places -->
+    <filter id="brush" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="21" result="wander"/>
+      <feDisplacementMap in="SourceGraphic" in2="wander" scale="16" result="moved"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.16 0.012" numOctaves="3" seed="4" result="dry"/>
+      <feColorMatrix in="dry" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 6 -1.9" result="mask"/>
+      <feComposite in="moved" in2="mask" operator="in"/>
+    </filter>
+    <!-- a wash: water carrying a little ink, pooling at its edges -->
+    <filter id="wash" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="4" seed="14" result="flow"/>
+      <feDisplacementMap in="SourceGraphic" in2="flow" scale="90" result="pool"/>
+      <feGaussianBlur in="pool" stdDeviation="9" result="soft"/>
+      <feMorphology in="pool" operator="erode" radius="5" result="inner"/>
+      <feGaussianBlur in="inner" stdDeviation="10" result="innerSoft"/>
+      <feComposite in="soft" in2="innerSoft" operator="arithmetic" k2="0.95" k3="-0.42"/>
+    </filter>
+    <filter id="bleed"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <g id="person">
+      <!-- a head, and one stroke from the shoulder to the ground -->
+      <ellipse cx="0" cy="-196" rx="19" ry="23"/>
+      <path d="M-30 -160c8-12 52-12 60 0 10 40 14 96 8 160h-22l-4-70h-12l-4 70h-26c-8-60-8-120 0-160Z"/>
+    </g>
+  </defs>
+
+  <rect width="1600" height="900" fill="#ebe2cd" filter="url(#paper)"/>
+
+  <!-- the washes: the roof of the station, the far end of the platform, the damp of the morning -->
+  <g filter="url(#wash)" fill="#3c4046">
+    <path d="M-80 60H1700V180H-80Z" opacity="0.5"/>
+    <ellipse cx="1280" cy="520" rx="380" ry="150" opacity="0.2"/>
+    <ellipse cx="300" cy="560" rx="330" ry="120" opacity="0.16"/>
+    <path d="M-80 690H1700V800H-80Z" opacity="0.3"/>
+  </g>
+
+  <g filter="url(#brush)">
+    <!-- the roof's edge and its posts -->
+    <path d="M-40 196C380 176 1180 204 1660 184v16C1180 222 380 196-40 216Z" fill="#17181b"/>
+    <path d="M214 204c10 150 4 330 8 490h-22c2-160 0-340-8-490Z" fill="#17181b" opacity="0.86"/>
+    <path d="M1374 198c10 150 4 330 8 496h-22c2-160 0-340-8-496Z" fill="#17181b" opacity="0.86"/>
+    <!-- the platform's edge: one long pull of the brush -->
+    <path d="M-40 690C340 678 900 700 1660 684v20C900 722 340 700-40 712Z" fill="#17181b"/>
+    <!-- the rails, lighter, going nowhere -->
+    <path d="M-40 786C500 774 1100 792 1660 780v7C1100 800 500 782-40 794Z" fill="#17181b" opacity="0.55"/>
+    <path d="M-40 838C500 826 1100 846 1660 832v8C1100 854 500 836-40 848Z" fill="#17181b" opacity="0.7"/>
+    <g fill="#17181b" opacity="0.4"><path d="M120 776l-30 80h14l30-80ZM470 778l-22 78h14l22-78ZM820 782l-6 76h14l6-76ZM1160 782l16 76h14l-16-76ZM1480 778l34 80h14l-34-80Z"/></g>
+
+    <!-- those who wait: none of them moving -->
+    <g fill="#17181b">
+      <use href="#person" transform="translate(330 694) scale(1.02)" opacity="0.9"/>
+      <use href="#person" transform="translate(432 694) scale(0.94 0.9)" opacity="0.72"/>
+      <use href="#person" transform="translate(520 694) scale(1.06 1.08)"/>
+      <use href="#person" transform="translate(642 694) scale(0.9 0.86)" opacity="0.62"/>
+      <use href="#person" transform="translate(736 694) scale(1 1.02)" opacity="0.85"/>
+      <use href="#person" transform="translate(900 694) scale(1.04 0.98)" opacity="0.95"/>
+      <use href="#person" transform="translate(996 694) scale(0.92 0.94)" opacity="0.66"/>
+      <use href="#person" transform="translate(1108 694) scale(1.08 1.06)" opacity="0.9"/>
+      <use href="#person" transform="translate(1226 694) scale(0.96 0.9)" opacity="0.74"/>
+    </g>
+    <!-- a case put down, a long while ago -->
+    <path d="M774 644h62c6 0 8 4 8 10v40h-78v-40c0-6 2-10 8-10Zm18 0c0-22 26-22 26 0h-8c0-10-10-10-10 0Z" fill="#17181b" opacity="0.9"/>
+
+    <!-- the clock, hung from the roof -->
+    <path d="M1056 206c4 30 2 52 4 76h-14c0-24-2-48-4-76Z" fill="#17181b"/>
+    <circle cx="1054" cy="352" r="72" fill="none" stroke="#17181b" stroke-width="13"/>
+    <path d="M1054 352l-4-46M1054 352l34 20" fill="none" stroke="#17181b" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <!-- their reflections on the wet platform, barely there -->
+  <g fill="#17181b" opacity="0.1" filter="url(#bleed)" transform="translate(0 1400) scale(1 -1)">
+    <use href="#person" transform="translate(330 694)"/><use href="#person" transform="translate(520 694) scale(1.06 1.08)"/><use href="#person" transform="translate(736 694)"/>
+    <use href="#person" transform="translate(900 694)"/><use href="#person" transform="translate(1108 694) scale(1.08 1.06)"/>
+  </g>
+
+  <!-- the one red thing: the board that says nothing is due -->
+  <g filter="url(#brush)"><path d="M560 262c60-6 150-4 214 0 4 26 4 50 0 76-64 4-154 6-214 0-4-26-4-50 0-76Z" fill="#b3261e"/></g>
+  <g fill="none" stroke="#ebe2cd" stroke-width="7" stroke-linecap="round" opacity="0.9"><path d="M596 300h46M664 300h46M732 300h14"/></g>
+  <!-- a seal, where the painter signs -->
+  <g transform="rotate(-4 1470 780)"><rect x="1440" y="750" width="60" height="60" rx="5" fill="#b3261e" filter="url(#bleed)"/><path d="M1454 766h32M1454 780h32M1454 794h20M1470 762v36" fill="none" stroke="#ebe2cd" stroke-width="4" stroke-linecap="round"/></g>
+</svg>

@@ -7,6 +7,7 @@
     tags: Macro, Labor market
     tickers: AAPL, MSFT
     published: 2026-10-06T08:00:00Z
+    cover: What the article's picture shows, for a reader who cannot see it.
     sources:
       - What the link says | https://example.gov/release
       - A news item of the portal | /news/article/?id=bls-1750ddcc5720
@@ -18,11 +19,15 @@
 The file's name is its date and its slug: 2026-10-06-the-jobs-market-is-standing-still.md. The
 slug is the article's address on the portal and never changes once published.
 
+An article has a cover: a picture, covers/<slug>.jpg, made from the drawing in covers/src/ (see
+covers/render.mjs). The ``cover`` line says in words what it shows.
+
 ``load`` reads one and refuses it, saying why, when it is not fit to publish.
 """
 
 from __future__ import annotations
 
+import hashlib
 import math
 import re
 from datetime import datetime, timezone
@@ -31,6 +36,7 @@ from pathlib import Path
 NAME = re.compile(r"(\d{4}-\d{2}-\d{2})-([a-z0-9][a-z0-9\-]{2,90})\.md")
 WORDS = (450, 1500)  # shorter is a note, longer is not read
 WORDS_PER_MINUTE = 220
+COVER_BYTES = 600 * 1024  # a cover travels in one document of the portal's database
 # What an article touches, said by its first tag: the economy, the markets as a whole, or one of
 # the portal's sectors.
 SCOPES = ["Macro", "Markets", "Technology", "Communication Services", "Consumer Cyclical", "Consumer Defensive", "Financial Services",
@@ -90,6 +96,9 @@ def load(path: Path) -> dict:
     tags = _list(data.get("tags"))
     if not tags or tags[0] not in SCOPES:
         problems.append(f"the first tag must be what the article touches: one of {', '.join(SCOPES)}")
+    cover = str(data.get("cover") or "").strip()
+    if cover and not 20 <= len(cover) <= 200:
+        problems.append("the cover line (what the picture shows) needs 20 to 200 characters")
     tickers = [t.upper() for t in _list(data.get("tickers"))]
     if any(not re.fullmatch(r"[A-Z][A-Z0-9.\-]{0,9}", t) for t in tickers):
         problems.append("a ticker is not a ticker")
@@ -124,11 +133,29 @@ def load(path: Path) -> dict:
         raise Invalid(f"{name}: " + "; ".join(problems))
     return {"slug": named.group(2), "title": title, "dek": dek, "kind": kind, "tags": tags, "tickers": tickers,
             "published_utc": published.astimezone(timezone.utc).isoformat(timespec="seconds"),
-            "minutes": max(1, math.ceil(words / WORDS_PER_MINUTE)), "body": body, "sources": sources}
+            "minutes": max(1, math.ceil(words / WORDS_PER_MINUTE)), "body": body, "sources": sources,
+            "cover": {"alt": cover} if cover else None}
 
 
-def load_all(folder: Path) -> list[dict]:
-    """Every article, newest first. One bad article, or two with the same slug, stops them all."""
+def picture(covers: Path, article: dict) -> bytes:
+    """The cover of an article, as it will be published. Refused when it is missing or unfit."""
+    name = f"covers/{article['slug']}.jpg"
+    path = covers / f"{article['slug']}.jpg"
+    if not article.get("cover"):
+        raise Invalid(f"{article['slug']}: it has no 'cover:' line saying what its picture shows")
+    if not path.exists():
+        raise Invalid(f"{name} is missing: draw it in covers/src/ and run `make covers`")
+    data = path.read_bytes()
+    if not data.startswith(b"\xff\xd8\xff"):
+        raise Invalid(f"{name} is not a JPEG")
+    if len(data) > COVER_BYTES:
+        raise Invalid(f"{name} weighs {len(data) // 1024} KB; a cover can weigh up to {COVER_BYTES // 1024}")
+    return data
+
+
+def load_all(folder: Path, covers: Path | None = None) -> list[dict]:
+    """Every article, newest first. One bad article, or two with the same slug, stops them all.
+    Given the folder of the covers, every article must have its own, and is told its version."""
     problems, out, seen = [], [], {}
     for path in sorted(folder.glob("*.md")):
         try:
@@ -139,6 +166,12 @@ def load_all(folder: Path) -> list[dict]:
         if article["slug"] in seen:
             problems.append(f"{path.name}: the same slug as {seen[article['slug']]}")
         seen[article["slug"]] = path.name
+        if covers is not None:
+            try:
+                # The version is the picture itself: draw it again and browsers ask for it again.
+                article["cover"] = {**(article["cover"] or {}), "v": hashlib.sha256(picture(covers, article)).hexdigest()[:12]}
+            except Invalid as exc:
+                problems.append(str(exc))
         out.append(article)
     if problems:
         raise Invalid("\n".join(problems))

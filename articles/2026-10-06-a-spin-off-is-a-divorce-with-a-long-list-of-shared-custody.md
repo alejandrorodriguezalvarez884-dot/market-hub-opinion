@@ -5,6 +5,7 @@ kind: Explainer
 tags: Basic Materials, Spin-offs
 tickers: VYLR, CTVA
 published: 2026-10-06T08:50:00Z
+cover: A paper cut-out of a factory torn in two, the halves drifting apart and still tied to each other by threads.
 sources:
   - Vylor Inc. becomes independent company through separation from Corteva (Market Hub) | /news/article/?id=sec-0001193125-26-414335
   - Vylor Form 8-K of October 5, 2026 (SEC) | https://www.sec.gov/Archives/edgar/data/2128626/000119312526414335/0001193125-26-414335-index.htm

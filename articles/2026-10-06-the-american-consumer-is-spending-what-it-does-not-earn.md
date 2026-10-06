@@ -5,6 +5,7 @@ kind: Column
 tags: Macro, Consumer
 tickers:
 published: 2026-10-06T08:20:00Z
+cover: Pixel art of a shopping trolley piled far too high at dusk, under a short meter of coins and one of spending that overflows.
 sources:
   - U.S. personal income rose 0.2 percent in August 2026 (Market Hub) | /news/article/?id=bea-7f355e1357bb
   - Personal Income and Outlays, August 2026 (Bureau of Economic Analysis) | https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026

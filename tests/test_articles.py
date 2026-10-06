@@ -71,3 +71,30 @@ def test_names_and_slugs(tmp_path):
     write(tmp_path)
     write(tmp_path, name="2026-10-05-an-older-one.md", **{"published: 2026-10-06T08:00:00Z": "published: 2026-10-05T08:00:00Z"})
     assert [a["slug"] for a in load_all(tmp_path)] == ["the-jobs-market-is-standing-still", "an-older-one"]  # newest first
+
+
+def test_every_article_needs_its_cover(tmp_path):
+    articles, covers = tmp_path / "articles", tmp_path / "covers"
+    articles.mkdir(), covers.mkdir()
+    write(articles)
+    with pytest.raises(Invalid, match="no 'cover:' line"):
+        load_all(articles, covers)
+    write(articles, text=GOOD.replace("sources:", "cover: An ink drawing of people waiting on a platform.\nsources:"))
+    with pytest.raises(Invalid, match="is missing"):
+        load_all(articles, covers)
+    jpg = covers / "the-jobs-market-is-standing-still.jpg"
+    jpg.write_bytes(b"not a picture")
+    with pytest.raises(Invalid, match="not a JPEG"):
+        load_all(articles, covers)
+    jpg.write_bytes(b"\xff\xd8\xff" + b"0" * 700 * 1024)
+    with pytest.raises(Invalid, match="weighs"):
+        load_all(articles, covers)
+    jpg.write_bytes(b"\xff\xd8\xff one picture")
+    one = load_all(articles, covers)[0]
+    assert one["cover"]["alt"].startswith("An ink drawing") and len(one["cover"]["v"]) == 12
+    assert card(one)["cover"] == one["cover"]
+    # Drawn again, it is another version: that is what makes a browser ask for it again.
+    jpg.write_bytes(b"\xff\xd8\xff another picture")
+    assert load_all(articles, covers)[0]["cover"]["v"] != one["cover"]["v"]
+    # Without the folder of covers, an article is read as before.
+    assert load_all(articles)[0]["cover"] == {"alt": "An ink drawing of people waiting on a platform."}

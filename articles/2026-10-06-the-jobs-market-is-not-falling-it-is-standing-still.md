@@ -5,6 +5,7 @@ kind: Analysis
 tags: Macro, Labor market
 tickers:
 published: 2026-10-06T08:05:00Z
+cover: An ink drawing of people waiting on a station platform under a clock, with no train and a blank red board.
 sources:
   - U.S. payroll employment adds 29,000 jobs in September (Market Hub) | /news/article/?id=bls-1750ddcc5720
   - The Employment Situation, September 2026 (Bureau of Labor Statistics) | https://www.bls.gov/news.release/archives/empsit_10022026.htm

@@ -5,6 +5,7 @@ kind: Column
 tags: Financial Services, Disclosure
 tickers: APO
 published: 2026-10-06T09:05:00Z
+cover: A two-colour print of an alarm clock ringing over a town that is still asleep, before the sun is up.
 sources:
   - Apollo Global Management reports third-quarter alternative net investment income of $375 million (Market Hub) | /news/article/?id=sec-0001858681-26-000054
   - Apollo Global Management Form 8-K of October 5, 2026 (SEC) | https://www.sec.gov/Archives/edgar/data/1858681/000185868126000054/0001858681-26-000054-index.htm
