@@ -2,7 +2,7 @@
 
 A signed-in reader of the portal can send an article in (themarkethub.app/opinion/submit/). The
 portal publishes nothing: it keeps each one in a bucket, submissions/<account>/<id>.json, and
-tells the owner by email. The owner reads it. One that is to run is brought here as a draft,
+that is where the owner finds it and reads it. One that is to run is brought here as a draft,
 finished like any other article (its tags, its cover, a last check against CLAUDE.md) and
 published with the rest; then the copy in the bucket is told so, and its author sees it on the
 page they sent it from.

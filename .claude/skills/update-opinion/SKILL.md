@@ -155,8 +155,9 @@ subjects covered in this run and the styles their covers used.
 
 ## A reader's article
 
-Readers send articles in from the portal; the user is emailed each one and reviews it. When the
-user says one is to run (they name it, or give its id), it is not written from scratch:
+Readers send articles in from the portal, which keeps them in a bucket for the user to review
+(`make inbox` lists them; `make fetch` brings one here to be read). When the user says one is to
+run (they name it, or give its id), it is not written from scratch:
 
 ```bash
 make inbox                # what is waiting, with the id of each

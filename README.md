@@ -35,12 +35,12 @@ make publish    # publish them to the portal (needs gcloud signed in)
 
 A signed-in reader can send an article in from the portal
 ([themarkethub.app/opinion/submit/](https://themarkethub.app/opinion/submit/)). The portal
-publishes nothing: it keeps the article in a private bucket and emails the owner, who reads it.
+publishes nothing: it keeps the article in a private bucket, where the owner reads it.
 One that is to run goes through this repo, like every other article:
 
 ```bash
 make inbox                    # what readers have sent in, newest first
-make fetch ID=<id>            # write inbox/<id>.md, a draft; prints who to answer (never saved)
+make fetch ID=<id>            # write inbox/<id>.md, a draft; prints whose it is (never saved)
 #   finish it: tags, published, the cover and its line; move it to articles/<date>-<slug>.md
 make covers && make check && make publish
 make mark ID=<id> STATUS=published SLUG=<slug>    # its author sees "Published" and the link

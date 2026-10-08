@@ -22,8 +22,8 @@ Reglas que no se negocian:
   imagen de fuera. Cada portada, de un estilo distinto a las anteriores. Sin logotipos, sin caras
   de personas reales, sin flechas de sube o baja.
 - **Un artículo de un lector solo se publica cuando el usuario lo dice.** Los lectores los envían
-  desde el portal (`/opinion/submit/`); el portal no publica nada: los guarda en un bucket y avisa
-  al usuario por correo. Él los revisa y dice cuál sale. Entonces `make fetch ID=<id>` lo trae a
+  desde el portal (`/opinion/submit/`); el portal no publica nada: los guarda en un bucket.
+  `make inbox` dice cuáles hay; el usuario los revisa y dice cuál sale. Entonces `make fetch ID=<id>` lo trae a
   `inbox/` (que no se commitea) y se termina como cualquier otro, con las mismas reglas: sus
   fuentes, opinar sí y aconsejar no, y su portada dibujada aquí. Se edita lo justo (longitud,
   claridad, erratas) y no se le cambia la tesis. Lleva la línea `author:` con el nombre con el que
