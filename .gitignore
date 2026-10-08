@@ -17,6 +17,9 @@ dist/
 # A local copy of what was published, for previews
 out/
 
+# Readers' articles brought here for review: a draft is theirs until it is published
+inbox/
+
 # OS / editors
 .DS_Store
 .vscode/

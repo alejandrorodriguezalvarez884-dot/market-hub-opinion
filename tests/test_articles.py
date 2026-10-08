@@ -98,3 +98,11 @@ def test_every_article_needs_its_cover(tmp_path):
     assert load_all(articles, covers)[0]["cover"]["v"] != one["cover"]["v"]
     # Without the folder of covers, an article is read as before.
     assert load_all(articles)[0]["cover"] == {"alt": "An ink drawing of people waiting on a platform."}
+
+
+def test_a_reader_signs_their_article(tmp_path):
+    signed = load(write(tmp_path, **{"kind: Analysis": "kind: Reader's view\nauthor:  Ana   R. "}))
+    assert signed["author"] == "Ana R." and card(signed)["author"] == "Ana R."
+    assert load(write(tmp_path))["author"] is None
+    with pytest.raises(Invalid, match="the author"):
+        load(write(tmp_path, **{"kind: Analysis": "kind: Reader's view\nauthor: A"}))

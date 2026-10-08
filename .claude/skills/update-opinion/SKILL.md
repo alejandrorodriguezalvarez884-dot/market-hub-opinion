@@ -153,6 +153,30 @@ them, and push.
 Update "Dónde estamos" in `docs/HANDOFF.md`: the date, how many articles there are, the
 subjects covered in this run and the styles their covers used.
 
+## A reader's article
+
+Readers send articles in from the portal; the user is emailed each one and reviews it. When the
+user says one is to run (they name it, or give its id), it is not written from scratch:
+
+```bash
+make inbox                # what is waiting, with the id of each
+make fetch ID=<id>        # inbox/<id>.md: the reader's text as a draft, with its author line
+```
+
+Finish the draft and move it to `articles/YYYY-MM-DD-the-slug.md`: the first tag (what it
+touches), `published`, and the cover you draw for it (step 5) with its `cover:` line. Keep
+`kind: Reader's view` and the `author:` line. Edit as little as an editor would (length, clarity,
+slips) and never change what it argues. The rules of step 4 hold: if it gives advice, states a
+figure its sources do not have, or copies someone else's text, tell the user what you found and do
+not publish it. Then check, publish and commit as in step 6, and tell its author:
+
+```bash
+make mark ID=<id> STATUS=published SLUG=<slug>     # or STATUS=declined, if the user turned it down
+```
+
+The address of the reader is printed by `make fetch` for the user to answer; never put it in a
+file, a commit or an article.
+
 ## 7. Tell the user
 
 In Spanish, briefly: the title of each new article with one line on its argument and the style of

@@ -21,6 +21,14 @@ Reglas que no se negocian:
   servicio ni modelo de generación de imágenes (ni Hugging Face ni otro) y no se coge ninguna
   imagen de fuera. Cada portada, de un estilo distinto a las anteriores. Sin logotipos, sin caras
   de personas reales, sin flechas de sube o baja.
+- **Un artículo de un lector solo se publica cuando el usuario lo dice.** Los lectores los envían
+  desde el portal (`/opinion/submit/`); el portal no publica nada: los guarda en un bucket y avisa
+  al usuario por correo. Él los revisa y dice cuál sale. Entonces `make fetch ID=<id>` lo trae a
+  `inbox/` (que no se commitea) y se termina como cualquier otro, con las mismas reglas: sus
+  fuentes, opinar sí y aconsejar no, y su portada dibujada aquí. Se edita lo justo (longitud,
+  claridad, erratas) y no se le cambia la tesis. Lleva la línea `author:` con el nombre con el que
+  firmó. Tras publicarlo, `make mark` se lo dice a su autor. El correo de quien lo envió no se
+  escribe en ningún archivo del repo ni en un commit.
 - **Nada de trading** ni conectores de broker, como en el resto del workspace.
 - **Nada programado.** Los artículos se escriben cuando el usuario lo pide.
 - **Claves solo en `.env` o en el entorno.** Publicar usa la sesión de `gcloud` del usuario.

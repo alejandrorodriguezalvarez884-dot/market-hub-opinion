@@ -8,6 +8,7 @@
     tickers: AAPL, MSFT
     published: 2026-10-06T08:00:00Z
     cover: What the article's picture shows, for a reader who cannot see it.
+    author: Ana R.
     sources:
       - What the link says | https://example.gov/release
       - A news item of the portal | /news/article/?id=bls-1750ddcc5720
@@ -18,6 +19,9 @@
 
 The file's name is its date and its slug: 2026-10-06-the-jobs-market-is-standing-still.md. The
 slug is the article's address on the portal and never changes once published.
+
+``author`` is only there when a reader of the portal wrote the article and sent it in (inbox.py):
+it is the name they signed it with, and the portal shows it. The articles written here have none.
 
 An article has a cover: a picture, covers/<slug>.jpg, made from the drawing in covers/src/ (see
 covers/render.mjs). The ``cover`` line says in words what it shows.
@@ -99,6 +103,9 @@ def load(path: Path) -> dict:
     cover = str(data.get("cover") or "").strip()
     if cover and not 20 <= len(cover) <= 200:
         problems.append("the cover line (what the picture shows) needs 20 to 200 characters")
+    author = re.sub(r"\s+", " ", str(data.get("author") or "")).strip()
+    if author and not 2 <= len(author) <= 40:
+        problems.append("the author (the name a reader signed with) needs 2 to 40 characters")
     tickers = [t.upper() for t in _list(data.get("tickers"))]
     if any(not re.fullmatch(r"[A-Z][A-Z0-9.\-]{0,9}", t) for t in tickers):
         problems.append("a ticker is not a ticker")
@@ -134,7 +141,7 @@ def load(path: Path) -> dict:
     return {"slug": named.group(2), "title": title, "dek": dek, "kind": kind, "tags": tags, "tickers": tickers,
             "published_utc": published.astimezone(timezone.utc).isoformat(timespec="seconds"),
             "minutes": max(1, math.ceil(words / WORDS_PER_MINUTE)), "body": body, "sources": sources,
-            "cover": {"alt": cover} if cover else None}
+            "cover": {"alt": cover} if cover else None, "author": author or None}
 
 
 def picture(covers: Path, article: dict) -> bytes:
