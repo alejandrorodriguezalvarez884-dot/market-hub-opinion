@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Linocut in two inks, black and orange: a firefighter soaks a small house that is not burning, his back to the tower and the derrick that are. -->
+  <defs>
+    <!-- The knife wanders: every edge wobbles a little. -->
+    <filter id="cut" x="-3%" y="-3%" width="106%" height="106%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Ink that missed the paper: pale specks over the black. -->
+    <filter id="miss" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.42" numOctaves="2" seed="11"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.925  0 0 0 0 0.886  0 0 0 0 0.8  9 0 0 0 -6.2"/>
+    </filter>
+    <!-- And ink where the block was not cut deep enough: dark flecks on the paper. -->
+    <filter id="chatter" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.5 0.9" numOctaves="2" seed="23"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.09  8 0 0 0 -5.5"/>
+    </filter>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="2"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0.16 0"/>
+    </filter>
+    <clipPath id="block"><rect x="56" y="56" width="1488" height="788"/></clipPath>
+  </defs>
+
+  <!-- Paper -->
+  <rect width="1600" height="900" fill="#ece2cc"/>
+  <rect width="1600" height="900" filter="url(#grain)"/>
+
+  <g filter="url(#cut)">
+    <!-- The block, inked black -->
+    <rect x="56" y="56" width="1488" height="788" fill="#1b1a17"/>
+
+    <g clip-path="url(#block)" fill="none" stroke="#ece2cc" stroke-linecap="round">
+      <!-- Sky: long gouges, left calm, right torn by heat -->
+      <g stroke-width="6">
+        <path d="M90 110H1000" stroke-dasharray="150 46 60 70 220 54 90 80"/>
+        <path d="M120 158H980" stroke-dasharray="70 60 190 44 120 90 60 50"/>
+        <path d="M84 206H940" stroke-dasharray="210 70 80 40 150 66"/>
+        <path d="M150 254H900" stroke-dasharray="90 50 140 80 60 44 200 60"/>
+        <path d="M96 302H640" stroke-dasharray="160 64 70 52 120 60"/>
+        <path d="M130 350H560" stroke-dasharray="60 40 180 70 90 50"/>
+        <path d="M90 398H470" stroke-dasharray="120 56 60 44 140 60"/>
+      </g>
+      <!-- Heat coming off the two fires: short cuts that fan out -->
+      <g stroke-width="7">
+        <path d="M1085 150l-46 -30M1068 214l-58 -12M1076 278l-52 8M1128 96l-30 -44M1204 70l-4 -50M1296 96l28 -42M1340 160l48 -26M1350 232l56 -6"/>
+        <path d="M1396 250l-34 -22M1414 196l-18 -40M1476 180l12 -44M1516 232l36 -26M1528 296l44 -6M1388 310l-42 6"/>
+      </g>
+
+      <!-- Ground -->
+      <path d="M56 700H1544" stroke-width="9"/>
+      <g stroke-width="6">
+        <path d="M70 742H1540" stroke-dasharray="120 50 70 80 240 60 90 70"/>
+        <path d="M110 782H1540" stroke-dasharray="60 70 200 50 110 90 70 60"/>
+        <path d="M70 822H1540" stroke-dasharray="180 60 80 50 140 80"/>
+      </g>
+
+      <!-- Water: the arc from the nozzle to the roof -->
+      <g stroke-width="9">
+        <path d="M704 500C624 372 486 352 392 452" stroke-dasharray="64 18 38 16 90 20"/>
+        <path d="M700 520C628 410 500 392 414 474" stroke-dasharray="40 16 80 18 50 14"/>
+        <path d="M708 480C622 332 468 312 366 430" stroke-dasharray="90 22 44 18 70 20"/>
+      </g>
+      <!-- Splash on the roof -->
+      <g stroke-width="7">
+        <path d="M372 440l-40 -46M352 462l-62 -26M400 432l-8 -58M430 440l24 -50M330 486l-66 -6"/>
+      </g>
+      <!-- The flood around the house -->
+      <g stroke-width="6">
+        <path d="M150 716C240 706 520 706 640 716" />
+        <path d="M120 748C250 734 540 734 690 748" stroke-dasharray="130 30 220 34 160 30"/>
+        <path d="M170 780C280 768 500 768 620 780" stroke-dasharray="90 28 150 30 120 26"/>
+      </g>
+    </g>
+
+    <!-- The small house, soaked -->
+    <g>
+      <path d="M236 540L376 432L516 540Z" fill="#ece2cc"/>
+      <rect x="258" y="540" width="236" height="160" fill="#ece2cc"/>
+      <g fill="none" stroke="#1b1a17" stroke-linecap="round">
+        <path d="M290 520L376 454L462 520" stroke-width="7"/>
+        <path d="M318 520L376 476L434 520" stroke-width="6"/>
+        <!-- water running down the walls -->
+        <path d="M280 552c6 30 -6 50 2 86M306 552c-6 26 8 60 0 100M470 552c-8 34 6 56 -2 96M446 552c6 20 -6 40 2 64" stroke-width="6"/>
+      </g>
+      <rect x="352" y="610" width="50" height="90" fill="#1b1a17"/>
+      <rect x="418" y="574" width="46" height="42" fill="#1b1a17"/>
+      <path d="M441 574v42M418 595h46" stroke="#ece2cc" stroke-width="5"/>
+      <!-- drips off the eaves -->
+      <g fill="#ece2cc">
+        <path d="M232 560q8 18 0 26q-8 -8 0 -26zM524 558q8 18 0 26q-8 -8 0 -26zM214 600q7 16 0 23q-7 -7 0 -23zM540 606q7 16 0 23q-7 -7 0 -23z"/>
+      </g>
+    </g>
+
+    <!-- The firefighter, back to the fire -->
+    <g>
+      <!-- hose trailing away along the ground -->
+      <path d="M782 560C830 600 800 668 880 690S1080 726 1180 760S1420 800 1544 786" fill="none" stroke="#ece2cc" stroke-width="13" stroke-linecap="round"/>
+      <!-- legs and boots -->
+      <path d="M800 600h34v88h-44v-14h10zM852 600h34v74h14v14h-48z" fill="#ece2cc"/>
+      <!-- coat -->
+      <path d="M796 486h92l14 124h-116z" fill="#ece2cc"/>
+      <path d="M790 568h110M792 588h110" stroke="#1b1a17" stroke-width="7"/>
+      <path d="M842 494v64" stroke="#1b1a17" stroke-width="5"/>
+      <!-- arms and nozzle -->
+      <path d="M812 506L742 522" stroke="#ece2cc" stroke-width="26" stroke-linecap="round"/>
+      <path d="M828 530L752 536" stroke="#ece2cc" stroke-width="22" stroke-linecap="round"/>
+      <path d="M760 530L702 508" stroke="#ece2cc" stroke-width="15" stroke-linecap="butt"/>
+      <path d="M716 500l-16 22" stroke="#ece2cc" stroke-width="12"/>
+      <!-- head and helmet, the long brim to the back -->
+      <circle cx="838" cy="458" r="25" fill="#ece2cc"/>
+      <path d="M806 452c2 -40 62 -40 66 -4l34 14v10h-104z" fill="#ece2cc"/>
+      <path d="M806 462h98" stroke="#1b1a17" stroke-width="5"/>
+      <path d="M838 420v-12" stroke="#ece2cc" stroke-width="9" stroke-linecap="round"/>
+    </g>
+
+    <!-- The tower: floor after floor of machines -->
+    <g>
+      <rect x="1118" y="262" width="176" height="438" fill="#ece2cc"/>
+      <g fill="#1b1a17">
+        <rect x="1136" y="290" width="140" height="12"/><rect x="1136" y="318" width="140" height="12"/>
+        <rect x="1136" y="346" width="140" height="12"/><rect x="1136" y="374" width="140" height="12"/>
+        <rect x="1136" y="402" width="140" height="12"/><rect x="1136" y="430" width="140" height="12"/>
+        <rect x="1136" y="458" width="140" height="12"/><rect x="1136" y="486" width="140" height="12"/>
+        <rect x="1136" y="514" width="140" height="12"/><rect x="1136" y="542" width="140" height="12"/>
+        <rect x="1136" y="570" width="140" height="12"/><rect x="1136" y="598" width="140" height="12"/>
+        <rect x="1136" y="626" width="140" height="12"/><rect x="1182" y="654" width="48" height="46"/>
+      </g>
+      <g fill="#ece2cc">
+        <rect x="1156" y="290" width="6" height="12"/><rect x="1210" y="318" width="6" height="12"/><rect x="1250" y="346" width="6" height="12"/>
+        <rect x="1174" y="374" width="6" height="12"/><rect x="1230" y="402" width="6" height="12"/><rect x="1150" y="430" width="6" height="12"/>
+        <rect x="1204" y="458" width="6" height="12"/><rect x="1256" y="486" width="6" height="12"/><rect x="1166" y="514" width="6" height="12"/>
+        <rect x="1222" y="542" width="6" height="12"/><rect x="1146" y="570" width="6" height="12"/><rect x="1244" y="598" width="6" height="12"/>
+        <rect x="1190" y="626" width="6" height="12"/>
+      </g>
+    </g>
+
+    <!-- The derrick -->
+    <g fill="none" stroke="#ece2cc" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1376 700L1438 356H1470L1532 700"/>
+      <path d="M1388 632L1520 632M1400 564L1508 564M1412 496L1496 496M1424 428L1484 428"/>
+      <path d="M1388 632L1508 564L1400 564L1520 632M1400 564L1496 496L1412 496L1508 564M1412 496L1484 428L1424 428L1496 496" stroke-width="6"/>
+      <path d="M1352 700H1548" stroke-width="12"/>
+    </g>
+  </g>
+
+  <!-- Second ink, a little out of register -->
+  <g filter="url(#cut)" transform="translate(7 -5)">
+    <!-- fire on the tower -->
+    <path d="M1100 266C1060 196 1136 176 1122 96C1176 132 1190 186 1184 216C1214 176 1232 116 1206 58C1296 122 1336 204 1306 266Z" fill="#e2551f"/>
+    <path d="M1150 266C1136 226 1176 214 1170 172C1200 196 1206 226 1200 244C1220 222 1230 196 1222 168C1262 204 1272 236 1258 266Z" fill="#ece2cc"/>
+    <!-- fire on the derrick -->
+    <path d="M1418 360C1392 308 1440 292 1432 240C1466 266 1474 300 1470 318C1490 296 1500 262 1488 228C1536 270 1546 320 1492 360Z" fill="#e2551f"/>
+    <path d="M1440 360C1432 334 1456 326 1452 300C1472 316 1476 334 1472 344C1484 334 1490 318 1486 304C1506 328 1506 346 1486 360Z" fill="#ece2cc"/>
+    <!-- embers -->
+    <g fill="#e2551f">
+      <circle cx="1090" cy="120" r="7"/><circle cx="1262" cy="60" r="6"/><circle cx="1340" cy="130" r="8"/><circle cx="1394" cy="214" r="6"/>
+      <circle cx="1528" cy="190" r="7"/><circle cx="1050" cy="196" r="5"/><circle cx="1172" cy="40" r="5"/>
+    </g>
+    <!-- the glow it throws on the tower -->
+    <g fill="#e2551f">
+      <rect x="1262" y="290" width="14" height="12"/><rect x="1262" y="318" width="14" height="12"/><rect x="1262" y="346" width="14" height="12"/>
+      <rect x="1262" y="374" width="14" height="12"/>
+    </g>
+  </g>
+
+  <rect x="56" y="56" width="1488" height="788" filter="url(#miss)"/>
+  <rect width="1600" height="900" filter="url(#chatter)" opacity="0.5"/>
+</svg>

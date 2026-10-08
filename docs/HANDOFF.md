@@ -1,6 +1,6 @@
 # Estado del proyecto y cómo continuar
 
-Última actualización: 2026-10-06.
+Última actualización: 2026-10-08.
 
 ## Qué se pidió
 
@@ -21,11 +21,12 @@ El usuario quiere una sección de opinión en Market Hub (https://themarkethub.a
 | Hecho | Pendiente |
 |---|---|
 | Formato de artículo (un Markdown con sus datos arriba) y su validador: `src/marketopinion/articles.py`, `make check`. 11 tests en verde | |
-| Publicación: `make publish` escribe en el Firestore del portal (`opinion/{slug}` y `opinion_state/front`) con la sesión de `gcloud` del usuario; `make preview` los deja donde los lee un portal en local. **Los seis primeros están publicados** (2026-10-06) y se ven en https://themarkethub.app/opinion/ | |
-| Skill `update-opinion` (`.claude/skills/update-opinion/SKILL.md`): ver qué hay, reunir material, elegir, escribir, comprobar, publicar, commitear y contar | Probarla en una sesión nueva (los seis primeros se escribieron en la sesión que la creó) |
+| Publicación: `make publish` escribe en el Firestore del portal (`opinion/{slug}` y `opinion_state/front`) con la sesión de `gcloud` del usuario; `make preview` los deja donde los lee un portal en local. **Hay nueve publicados** (seis el 2026-10-06, tres el 2026-10-08) y se ven en https://themarkethub.app/opinion/ | |
+| Skill `update-opinion` (`.claude/skills/update-opinion/SKILL.md`): ver qué hay, reunir material, elegir, escribir, comprobar, publicar, commitear y contar | **Probada en una sesión nueva el 2026-10-08** (`/update-opinion 3`): el ciclo entero funcionó sin tocar la skill |
 | **Seis artículos iniciales** (2026-10-06), todos a partir de noticias del portal y de sus documentos: el mercado laboral parado (Analysis), el consumidor que gasta lo que no ingresa (Column), la previsión de AbbVie y sus cargos por compras de I+D (Explainer), la escisión de Vylor y sus seis acuerdos (Explainer), el adelanto de resultados de Apollo y la cifra anualizada (Column) y leer el 8-K antes que el titular (Column) | |
+| **Tres artículos más** (2026-10-08): las actas de la Fed de septiembre, que sube tipos donde no está la inflación (Counterpoint, Macro); la pérdida de 3.000 a 4.000 millones de Chevron al salir de Hess Midstream, que es un precio y va a partidas especiales (Column, Energy); y la deuda vieja de Digital Realty al 2,99 % de media frente al 5,125 % de su bono nuevo en euros (Analysis, Real Estate). Además de la noticia del portal y su documento, cada uno usa otro documento primario: el informe de empleo del BLS, el 10-Q de Hess Midstream y el 10-Q de Digital Realty | |
 | Repo en GitHub (`alejandrorodriguezalvarez884-dot/market-hub-opinion`), submódulo del workspace `market-hub` | |
-| **Portadas** (2026-10-06): cada artículo tiene la suya. El dibujo es código (`covers/src/<slug>.svg` o `.html`), `make covers` lo convierte en `covers/<slug>.jpg` (1200x675) con el Chrome local (`covers/render.mjs`, `playwright-core`), `make check` exige que exista y la línea `cover:` (el texto alternativo), y `make publish` la sube a `opinion_covers/{slug}` solo si es nueva o cambió. Las seis primeras: papel recortado (escisión), plano técnico (AbbVie), risografía a dos tintas (Apollo), cartel constructivista (8-K), pixel art (consumidor), tinta y aguada (empleo) | **Publicadas el 2026-10-06** y comprobadas en https://themarkethub.app/opinion/ (las seis cargan). Pendiente: probar el paso de portadas de la skill en una sesión nueva |
+| **Portadas** (2026-10-06): cada artículo tiene la suya. El dibujo es código (`covers/src/<slug>.svg` o `.html`), `make covers` lo convierte en `covers/<slug>.jpg` (1200x675) con el Chrome local (`covers/render.mjs`, `playwright-core`), `make check` exige que exista y la línea `cover:` (el texto alternativo), y `make publish` la sube a `opinion_covers/{slug}` solo si es nueva o cambió. Las seis primeras: papel recortado (escisión), plano técnico (AbbVie), risografía a dos tintas (Apollo), cartel constructivista (8-K), pixel art (consumidor), tinta y aguada (empleo). Las tres del 2026-10-08: linograbado a dos tintas (Fed), bodegón plano de un tique de caja con su sello (Chevron) y diagrama isométrico hecho con un script (Digital Realty) | **Publicadas el 2026-10-06** y comprobadas en https://themarkethub.app/opinion/ (las seis cargan). El paso de portadas de la skill, probado en una sesión nueva el 2026-10-08 (dos pasadas en dos de las tres) |
 
 ## Cómo está hecho
 
@@ -48,7 +49,6 @@ El usuario quiere una sección de opinión en Market Hub (https://themarkethub.a
 
 ## Siguientes pasos
 
-1. Usar la skill en una sesión nueva: `/update-opinion 3`, y ver que el ciclo entero funciona.
-2. Decidir si los artículos llevan alguna indicación de que están escritos con IA (el usuario
+1. Decidir si los artículos llevan alguna indicación de que están escritos con IA (el usuario
    prefirió no decir en la web cómo está hecha; el Reglamento europeo de IA lo pide para texto
    que informa al público, salvo revisión humana con responsabilidad editorial).
