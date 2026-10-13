@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Chalk on a blackboard: a small figure, knees bending, holds a large house over its head, standing on three thin coins. -->
+  <defs>
+    <filter id="board" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.02" numOctaves="4" seed="4" result="smear"/>
+      <feColorMatrix in="smear" type="matrix" values="0 0 0 0 0.85  0 0 0 0 0.9  0 0 0 0 0.86  0 0 0 0.55 -0.2" result="dust"/>
+      <feComposite in="dust" in2="SourceGraphic" operator="over"/>
+    </filter>
+    <filter id="chalk" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="11" result="wob"/>
+      <feDisplacementMap in="SourceGraphic" in2="wob" scale="7" result="shaky"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="3" result="grain"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.6 1.75" result="holes"/>
+      <feComposite in="shaky" in2="holes" operator="in"/>
+    </filter>
+    <pattern id="hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><path d="M0 8H16" stroke="#f3f1e6" stroke-width="3.2" stroke-opacity="0.75"/></pattern>
+  </defs>
+  <rect width="1600" height="900" fill="#1f3a31"/>
+  <rect width="1600" height="900" fill="#1f3a31" filter="url(#board)" opacity="0.5"/>
+  <!-- wiped patch -->
+  <ellipse cx="1280" cy="250" rx="260" ry="120" fill="#e8efe6" opacity="0.045"/>
+  <ellipse cx="300" cy="640" rx="300" ry="110" fill="#e8efe6" opacity="0.04"/>
+  <g filter="url(#chalk)" fill="none" stroke="#f3f1e6" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- the house -->
+    <path d="M430 470 L430 250 L800 70 L1170 250 L1170 470 Z"/>
+    <path d="M380 262 L800 52 L1220 262" stroke-width="12"/>
+    <path d="M430 470 L430 250 L800 70 L1170 250 L1170 470 Z" fill="url(#hatch)" stroke="none" opacity="0.5"/>
+    <rect x="960" y="92" width="62" height="110" fill="#1f3a31"/>
+    <rect x="520" y="290" width="130" height="110" fill="#1f3a31"/><path d="M585 290V400M520 345H650"/>
+    <rect x="950" y="290" width="130" height="110" fill="#1f3a31"/><path d="M1015 290V400M950 345H1080"/>
+    <rect x="745" y="300" width="110" height="170" fill="#1f3a31"/><circle cx="832" cy="392" r="5"/>
+    <path d="M745 180 a55 55 0 0 1 110 0 Z" fill="#1f3a31"/>
+    <!-- the figure -->
+    <circle cx="800" cy="560" r="34"/>
+    <path d="M800 594 L796 700"/>
+    <path d="M797 620 L720 560 L700 478"/>
+    <path d="M797 620 L880 560 L900 478"/>
+    <path d="M796 700 L740 750 L768 818"/>
+    <path d="M796 700 L852 750 L826 818"/>
+    <path d="M745 818 H785 M808 818 H848"/>
+    <!-- strain -->
+    <path d="M640 600 l-34 -14 M632 650 l-38 2 M960 600 l34 -14 M968 650 l38 2" stroke-width="6"/>
+    <path d="M150 846 H1450" stroke-width="6" stroke-opacity="0.6"/>
+  </g>
+  <!-- three thin coins, in yellow chalk -->
+  <g filter="url(#chalk)" fill="none" stroke="#f4cf52" stroke-width="8" stroke-linecap="round">
+    <ellipse cx="797" cy="834" rx="74" ry="11"/>
+    <path d="M723 834 v10 a74 11 0 0 0 148 0 v-10"/>
+    <path d="M723 844 v10 a74 11 0 0 0 148 0 v-10"/>
+  </g>
+  <!-- ledge and chalk -->
+  <rect x="0" y="872" width="1600" height="28" fill="#6b4a2e"/>
+  <rect x="0" y="872" width="1600" height="5" fill="#8a6440"/>
+  <rect x="1180" y="858" width="74" height="15" rx="4" fill="#f3f1e6"/>
+  <rect x="1290" y="860" width="46" height="13" rx="4" fill="#f4cf52"/>
+</svg>
