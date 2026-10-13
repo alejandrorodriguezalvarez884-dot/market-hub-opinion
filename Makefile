@@ -1,4 +1,5 @@
-# Everything is started from here, by hand. Nothing runs on a timer.
+# Everything is started from here, by hand. Nothing here runs on a timer: the daily batch is a
+# scheduled task of the user's Claude app (the workspace's maintenance skill), which calls these.
 #
 #   make covers     turn the drawings in covers/src/ into the pictures the portal shows
 #   make check      read every article and say what is wrong with any of them

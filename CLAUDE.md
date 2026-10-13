@@ -30,7 +30,11 @@ Reglas que no se negocian:
   firmó. Tras publicarlo, `make mark` se lo dice a su autor. El correo de quien lo envió no se
   escribe en ningún archivo del repo ni en un commit.
 - **Nada de trading** ni conectores de broker, como en el resto del workspace.
-- **Nada programado.** Los artículos se escriben cuando el usuario lo pide.
+- **Nada programado, salvo la tanda diaria.** Los artículos se escriben cuando el usuario lo pide,
+  y en el mantenimiento diario del workspace (`market-hub`, skill `maintenance`), que el usuario
+  pidió el 2026-10-13: entre uno y cinco al día, publicados sin que nadie los lea antes. Por eso
+  quien los escribe es la última revisión: un artículo que no se sostiene con sus fuentes no
+  sale. Los artículos de lectores quedan fuera de esa tanda.
 - **Claves solo en `.env` o en el entorno.** Publicar usa la sesión de `gcloud` del usuario.
 
 Convenciones:
