@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Japanese woodblock print: a great wave made of thousands of identical memory chips rears over a small
+       factory, which stands behind a palisade of stakes lashed together with rope. -->
+  <defs>
+    <!-- Paper: warm fibres and the grain of the block. -->
+    <filter id="paper" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.27  0 0 0 0 0.15  0 0 0 0.16 0"/>
+    </filter>
+    <filter id="woodgrain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0015 0.06" numOctaves="3" seed="3" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.25  0 0 0 0 0.2  0 0 0 0 0.12  0 0 0 0.22 0"/>
+    </filter>
+    <!-- Ink that does not quite reach the edge of the carving. -->
+    <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="11" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- The water is made of chips: a small square with its pins, repeated. -->
+    <pattern id="chips" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <rect x="7" y="7" width="16" height="16" fill="#3d6e9e"/>
+      <rect x="10" y="10" width="10" height="10" fill="#28507a"/>
+      <g stroke="#3d6e9e" stroke-width="1.6">
+        <path d="M10 7v-3M15 7v-3M20 7v-3M10 23v3M15 23v3M20 23v3M7 10h-3M7 15h-3M7 20h-3M23 10h3M23 15h3M23 20h3"/>
+      </g>
+    </pattern>
+    <pattern id="chipsLight" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <rect x="7" y="7" width="16" height="16" fill="#9fc0d8"/>
+      <rect x="10" y="10" width="10" height="10" fill="#7aa3c4"/>
+    </pattern>
+    <clipPath id="waveClip">
+      <path id="wavePath" d="M-20,920 L-20,560 C60,430 190,270 380,190 C520,132 690,128 800,180
+        C890,222 940,290 925,345 C910,395 850,410 808,382 C775,360 770,320 742,312
+        C700,300 668,350 680,410 C700,500 790,580 920,640 C990,676 1040,740 1066,800 C1076,830 1080,880 1082,920 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Sky: cream paper with the bokashi gradient at the top. -->
+  <rect width="1600" height="900" fill="#efe3c8"/>
+  <linearGradient id="bokashi" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#c9a77a" stop-opacity="0.75"/>
+    <stop offset="0.35" stop-color="#efe3c8" stop-opacity="0"/>
+  </linearGradient>
+  <rect width="1600" height="900" fill="url(#bokashi)"/>
+  <rect width="1600" height="900" filter="url(#woodgrain)"/>
+
+  <!-- A low sun, printed in a single pale red, a little off its outline. -->
+  <circle cx="1310" cy="200" r="88" fill="#d9775a" opacity="0.85"/>
+  <circle cx="1314" cy="196" r="88" fill="none" stroke="#2a2a33" stroke-width="3" opacity="0.6"/>
+
+  <!-- Far sea. -->
+  <path d="M0,640 C300,628 700,632 1600,612 L1600,900 L0,900 Z" fill="#28507a"/>
+  <g fill="none" stroke="#efe3c8" stroke-width="4" stroke-linecap="round" opacity="0.8" filter="url(#ink)">
+    <path d="M1060,690 q30,-18 60,0 q30,18 60,0 q30,-18 60,0"/>
+    <path d="M1300,742 q30,-18 60,0 q30,18 60,0 q30,-18 60,0 q30,18 60,0"/>
+    <path d="M1120,800 q30,-18 60,0 q30,18 60,0 q30,-18 60,0 q30,18 60,0 q30,-18 60,0"/>
+    <path d="M1380,850 q30,-18 60,0 q30,18 60,0 q30,-18 60,0"/>
+  </g>
+
+  <!-- The factory: a sawtooth roof and a stack, plain and small. -->
+  <g filter="url(#ink)">
+    <path d="M1230,600 L1230,470 L1290,420 L1290,470 L1350,420 L1350,470 L1410,420 L1410,470 L1470,420 L1470,600 Z"
+          fill="#a8452e" stroke="#2a2a33" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="1440" y="340" width="26" height="90" fill="#a8452e" stroke="#2a2a33" stroke-width="5"/>
+    <g fill="#efe3c8" stroke="#2a2a33" stroke-width="3">
+      <rect x="1262" y="500" width="34" height="30"/><rect x="1322" y="500" width="34" height="30"/>
+      <rect x="1382" y="500" width="34" height="30"/>
+    </g>
+    <path d="M1453,336 c-10,-30 20,-40 6,-70 c-8,-18 14,-30 4,-52" fill="none" stroke="#2a2a33" stroke-width="4" opacity="0.5"/>
+  </g>
+
+  <!-- The palisade: stakes driven in a row and lashed with rope. -->
+  <g filter="url(#ink)">
+    <g fill="#c99a45" stroke="#2a2a33" stroke-width="4" stroke-linejoin="round">
+      <path d="M1080,770 L1080,560 L1096,540 L1112,560 L1112,770 Z"/>
+      <path d="M1124,775 L1124,548 L1140,526 L1156,548 L1156,775 Z"/>
+      <path d="M1168,778 L1168,556 L1184,536 L1200,556 L1200,778 Z"/>
+      <path d="M1212,780 L1212,545 L1228,522 L1244,545 L1244,780 Z"/>
+      <path d="M1256,782 L1256,552 L1272,532 L1288,552 L1288,782 Z"/>
+      <path d="M1300,784 L1300,548 L1316,526 L1332,548 L1332,784 Z"/>
+      <path d="M1344,786 L1344,556 L1360,536 L1376,556 L1376,786 Z"/>
+      <path d="M1388,788 L1388,546 L1404,524 L1420,546 L1420,788 Z"/>
+      <path d="M1432,790 L1432,554 L1448,534 L1464,554 L1464,790 Z"/>
+      <path d="M1476,792 L1476,548 L1492,528 L1508,548 L1508,792 Z"/>
+      <path d="M1520,794 L1520,556 L1536,536 L1552,556 L1552,794 Z"/>
+    </g>
+    <!-- Grain on the stakes. -->
+    <g stroke="#8a6526" stroke-width="2" opacity="0.7">
+      <path d="M1096,580v170M1140,570v180M1184,580v170M1228,570v190M1272,575v180M1316,570v190M1360,580v180M1404,570v190M1448,580v180M1492,570v190M1536,580v180"/>
+    </g>
+    <!-- Two ropes, wound round each stake. -->
+    <g fill="none" stroke="#7a2e22" stroke-width="7" stroke-linecap="round">
+      <path d="M1074,612 C1150,630 1300,630 1560,606"/>
+      <path d="M1074,700 C1150,718 1300,718 1560,694"/>
+    </g>
+    <g fill="none" stroke="#efe3c8" stroke-width="2" opacity="0.7">
+      <path d="M1074,612 C1150,630 1300,630 1560,606" stroke-dasharray="6 10"/>
+      <path d="M1074,700 C1150,718 1300,718 1560,694" stroke-dasharray="6 10"/>
+    </g>
+    <g fill="#7a2e22">
+      <circle cx="1096" cy="618" r="9"/><circle cx="1184" cy="626" r="9"/><circle cx="1272" cy="627" r="9"/>
+      <circle cx="1360" cy="624" r="9"/><circle cx="1448" cy="618" r="9"/><circle cx="1536" cy="609" r="9"/>
+      <circle cx="1096" cy="706" r="9"/><circle cx="1184" cy="714" r="9"/><circle cx="1272" cy="715" r="9"/>
+      <circle cx="1360" cy="712" r="9"/><circle cx="1448" cy="706" r="9"/><circle cx="1536" cy="697" r="9"/>
+    </g>
+  </g>
+
+  <!-- The great wave, every inch of it chips. -->
+  <g filter="url(#ink)">
+    <use href="#wavePath" fill="#1f3f63"/>
+    <g clip-path="url(#waveClip)">
+      <rect x="-40" y="100" width="1300" height="840" fill="url(#chips)"/>
+      <!-- The lighter inside of the curl. -->
+      <path d="M380,250 C520,190 680,190 770,236 C840,272 860,320 840,345 C760,300 690,300 650,350
+               C610,420 640,520 760,600 C600,560 470,470 420,380 C390,330 370,280 380,250 Z" fill="url(#chipsLight)"/>
+    </g>
+    <use href="#wavePath" fill="none" stroke="#14263c" stroke-width="7"/>
+  </g>
+  <!-- Ink lines that run along the water, cut into the block. -->
+  <g fill="none" stroke="#efe3c8" stroke-width="4" stroke-linecap="round" opacity="0.85" filter="url(#ink)" clip-path="url(#waveClip)">
+    <path d="M40,600 C160,450 300,320 470,262"/>
+    <path d="M120,700 C250,560 380,470 520,430"/>
+    <path d="M250,820 C380,700 520,620 700,600"/>
+    <path d="M520,860 C680,760 860,720 1100,730"/>
+  </g>
+
+  <!-- Foam: claws along the crest. -->
+  <g fill="#f6efdd" stroke="#14263c" stroke-width="3" filter="url(#ink)">
+    <path d="M800,180 c22,-6 38,6 30,22 c18,-8 34,4 26,22 c18,-4 30,10 22,26 c16,2 24,18 14,30 c14,6 14,24 0,30 c6,12 -4,26 -18,24 c-2,14 -18,20 -28,10 c-10,10 -26,4 -26,-10 c-14,0 -20,-16 -10,-26 c-12,-8 -6,-24 8,-24 z"/>
+    <path d="M700,150 c14,-16 34,-12 38,4 c12,-14 32,-6 30,10 c-12,4 -30,0 -36,-6 c-8,8 -26,8 -32,-8 z"/>
+    <path d="M590,150 c12,-18 32,-16 38,0 c14,-12 32,-2 28,14 c-14,2 -28,-4 -34,-10 c-10,8 -28,8 -32,-4 z"/>
+    <path d="M480,178 c10,-18 30,-18 36,-2 c14,-12 32,-2 26,14 c-14,0 -26,-6 -32,-12 c-10,8 -26,6 -30,0 z"/>
+  </g>
+  <!-- Spray, flung as single chips. -->
+  <g fill="#f6efdd" stroke="#14263c" stroke-width="2">
+    <rect x="868" y="140" width="12" height="12" transform="rotate(-18 874 146)"/>
+    <rect x="905" y="176" width="10" height="10" transform="rotate(-18 910 181)"/>
+    <rect x="930" y="230" width="9" height="9" transform="rotate(-18 934 234)"/>
+    <rect x="840" y="110" width="9" height="9" transform="rotate(-18 844 114)"/>
+    <rect x="955" y="285" width="8" height="8" transform="rotate(-18 959 289)"/>
+    <rect x="780" y="112" width="10" height="10" transform="rotate(-18 785 117)"/>
+    <rect x="985" y="330" width="8" height="8" transform="rotate(-18 989 334)"/>
+    <rect x="1010" y="380" width="7" height="7" transform="rotate(-18 1013 383)"/>
+  </g>
+
+  <!-- Paper over everything. -->
+  <rect width="1600" height="900" filter="url(#paper)"/>
+</svg>
