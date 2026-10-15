@@ -1,0 +1,152 @@
+<!doctype html>
+<!-- Stained glass: three hot-air balloons tied in a row. The first is torn and sinks under bags of
+     stones; its ropes, pulled taut, drag down the other two, whose envelopes are whole. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; height: 100%; background: #111; }
+  svg { display: block; width: 100vw; height: 100vh; }
+</style>
+</head>
+<body>
+<svg id="s" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- The glass: uneven thickness, bubbles and streaks. -->
+    <filter id="glass" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.011 0.02" numOctaves="3" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.05"/>
+    </filter>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="g"/>
+      <feColorMatrix in="g" type="matrix"
+        values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -0.9 0.55"/>
+    </filter>
+    <!-- The lead wobbles a little, as soldered by hand. -->
+    <filter id="lead" x="-2%" y="-2%" width="104%" height="104%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="11" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="5"/>
+    </filter>
+    <radialGradient id="light" cx="78%" cy="12%" r="85%">
+      <stop offset="0" stop-color="#fff6d8" stop-opacity="0.45"/>
+      <stop offset="0.5" stop-color="#fff6d8" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.35"/>
+    </radialGradient>
+    <path id="env" d="M 0 -150 C 140 -150 152 -40 112 40 C 86 92 42 120 30 150 L -30 150 C -42 120 -86 92 -112 40 C -152 -40 -140 -150 0 -150 Z"/>
+    <clipPath id="envclip"><use href="#env"/></clipPath>
+    <!-- The envelope's three bands, bounded by the same curves as its horizontal leads. -->
+    <clipPath id="band0"><path d="M -200 -200 L 200 -200 L 200 -40 L 170 -40 Q 0 -12 -170 -40 L -200 -40 Z"/></clipPath>
+    <clipPath id="band1"><path d="M -200 -40 L -170 -40 Q 0 -12 170 -40 L 200 -40 L 200 60 L 170 60 Q 0 88 -170 60 L -200 60 Z"/></clipPath>
+    <clipPath id="band2"><path d="M -200 60 L -170 60 Q 0 88 170 60 L 200 60 L 200 200 L -200 200 Z"/></clipPath>
+  </defs>
+  <g id="panes"></g>
+  <g id="paneleads" filter="url(#lead)"></g>
+  <g id="balloons"></g>
+  <rect width="1600" height="900" fill="#000" filter="url(#glass)" opacity="0.32" style="mix-blend-mode:multiply"/>
+  <rect width="1600" height="900" fill="url(#light)" style="mix-blend-mode:soft-light"/>
+  <rect width="1600" height="900" filter="url(#grain)" opacity="0.18" style="mix-blend-mode:overlay"/>
+  <g id="leads" filter="url(#lead)"></g>
+  <!-- The window's frame. -->
+  <rect x="10" y="10" width="1580" height="880" fill="none" stroke="#17161a" stroke-width="28"/>
+  <rect x="34" y="34" width="1532" height="832" fill="none" stroke="#17161a" stroke-width="6"/>
+</svg>
+<script>
+  const NS = "http://www.w3.org/2000/svg";
+  const LEAD = "#17161a";
+  let seed = 42;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const pick = (a) => a[Math.floor(rnd() * a.length)];
+  const el = (tag, attrs, parent) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    parent.appendChild(e);
+    return e;
+  };
+  const panes = document.getElementById("panes");
+  const balloons = document.getElementById("balloons");
+  const leads = document.getElementById("leads");
+  const paneleads = document.getElementById("paneleads");
+
+  // Sky and ground: a jittered grid of quads, each its own piece of glass.
+  const xs = [0, 230, 470, 700, 930, 1160, 1390, 1600];
+  const ys = [0, 210, 420, 640, 790, 900];
+  const P = ys.map((y, j) => xs.map((x, i) => {
+    const inner = i > 0 && i < xs.length - 1 && j > 0 && j < ys.length - 1;
+    return [x + (inner ? (rnd() - 0.5) * 110 : 0), y + (inner ? (rnd() - 0.5) * 70 : 0)];
+  }));
+  const sky = ["#2f5d8a", "#3b74a6", "#27507a", "#4a86b8", "#1f4468", "#5a93c2", "#35699a"];
+  const ground = ["#2e5e3a", "#3c7346", "#244d2f", "#4a7f3e"];
+  for (let j = 0; j < ys.length - 1; j++) {
+    for (let i = 0; i < xs.length - 1; i++) {
+      const q = [P[j][i], P[j][i + 1], P[j + 1][i + 1], P[j + 1][i]];
+      const pts = q.map((p) => p.join(",")).join(" ");
+      const fill = j >= ys.length - 2 ? pick(ground) : pick(sky);
+      el("polygon", { points: pts, fill }, panes);
+      el("polygon", { points: pts, fill: "none", stroke: LEAD, "stroke-width": 9, "stroke-linejoin": "round" }, paneleads);
+    }
+  }
+
+  // One balloon: the envelope cut into glass pieces, its gores in lead, a basket under it.
+  function balloon(cx, cy, colors, squash, torn) {
+    const g = el("g", { transform: `translate(${cx},${cy})` }, balloons);
+    const lg = el("g", { transform: `translate(${cx},${cy})` }, leads);
+    const eg = el("g", { transform: `scale(1,${squash})` }, g);
+    const elg = el("g", { transform: `scale(1,${squash})` }, lg);
+    const clip = el("g", { "clip-path": "url(#envclip)" }, eg);
+    const lclip = el("g", { "clip-path": "url(#envclip)" }, elg);
+    // Each gore is a strip between two of the curves the leads follow, cut again by the bands.
+    const gores = [-260, -110, -55, 0, 55, 110, 260];
+    for (const band of ["band0", "band1", "band2"]) {
+      const bg = el("g", { "clip-path": `url(#${band})` }, clip);
+      for (let i = 0; i < gores.length - 1; i++) {
+        const [o1, o2] = [gores[i], gores[i + 1]];
+        el("path", { d: `M 0 -150 Q ${o1 * 1.7} 0 ${o1 * 0.27} 150 L ${o2 * 0.27} 150 Q ${o2 * 1.7} 0 0 -150 Z`, fill: pick(colors) }, bg);
+      }
+    }
+    for (const o of [-110, -55, 0, 55, 110]) {
+      el("path", { d: `M 0 -150 Q ${o * 1.7} 0 ${o * 0.27} 150`, fill: "none", stroke: LEAD, "stroke-width": 7 }, lclip);
+    }
+    for (const y of [-40, 60]) {
+      el("path", { d: `M -170 ${y} Q 0 ${y + 28} 170 ${y}`, fill: "none", stroke: LEAD, "stroke-width": 7 }, lclip);
+    }
+    if (torn) {
+      // A rip: a ragged hole through three gores, the sky showing through it.
+      const hole = "-96,-70 -70,-104 -40,-86 -8,-112 14,-80 4,-50 30,-30 6,-8 20,22 -12,8 -30,40 -46,6 -80,18 -66,-14 -104,-30 -78,-48";
+      el("polygon", { points: hole, fill: "#3b74a6" }, clip);
+      el("polygon", { points: hole, fill: "none", stroke: LEAD, "stroke-width": 9, "stroke-linejoin": "round" }, lclip);
+    }
+    el("use", { href: "#env", fill: "none", stroke: LEAD, "stroke-width": 13 }, elg);
+    const bottom = 150 * squash;
+    // Rigging and basket.
+    for (const [a, b] of [[-30, -32], [30, 32]]) {
+      el("line", { x1: a, y1: bottom, x2: b, y2: 190, stroke: LEAD, "stroke-width": 6 }, lg);
+    }
+    el("rect", { x: -36, y: 190, width: 72, height: 46, fill: "#8a5a2b" }, g);
+    el("rect", { x: -36, y: 190, width: 36, height: 23, fill: "#a5713a" }, g);
+    el("rect", { x: 0, y: 213, width: 36, height: 23, fill: "#a5713a" }, g);
+    el("rect", { x: -36, y: 190, width: 72, height: 46, fill: "none", stroke: LEAD, "stroke-width": 9, "stroke-linejoin": "round" }, lg);
+    el("line", { x1: 0, y1: 190, x2: 0, y2: 236, stroke: LEAD, "stroke-width": 6 }, lg);
+    el("line", { x1: -36, y1: 213, x2: 36, y2: 213, stroke: LEAD, "stroke-width": 6 }, lg);
+    return { g, lg };
+  }
+
+  const b1 = balloon(330, 560, ["#a8452f", "#c9773a", "#8c3a2a", "#b8623a"], 0.8, true);
+  balloon(830, 330, ["#d9a521", "#e8c547", "#c4512b", "#e07b2e"], 1, false);
+  balloon(1310, 205, ["#7a3e8f", "#b04a6e", "#d9a521", "#5f8f4a"], 1, false);
+
+  // The stones hanging under the torn one.
+  for (const [x, y, r, c] of [[-34, 272, 24, "#6b6a70"], [4, 290, 27, "#87868c"], [40, 268, 22, "#55545a"]]) {
+    el("line", { x1: x * 0.6, y1: 236, x2: x, y2: y - r, stroke: LEAD, "stroke-width": 5 }, b1.lg);
+    el("circle", { cx: x, cy: y, r, fill: c }, b1.g);
+    el("circle", { cx: x, cy: y, r, fill: "none", stroke: LEAD, "stroke-width": 8 }, b1.lg);
+  }
+
+  // The tethers, taut, from basket to basket.
+  for (const [x1, y1, x2, y2] of [[366, 772, 794, 543], [866, 543, 1274, 418]]) {
+    el("line", { x1, y1, x2, y2, stroke: LEAD, "stroke-width": 11, "stroke-linecap": "round" }, leads);
+    el("line", { x1, y1, x2, y2, stroke: "#d8b46a", "stroke-width": 4, "stroke-linecap": "round" }, leads);
+  }
+</script>
+</body>
+</html>
