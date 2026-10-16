@@ -1,0 +1,124 @@
+<!-- A comic strip in two panels, inked with halftone dots: a guest with a small suitcase at the door says it is only for a few days; later, the guest has unpacked into an armchair, and a large doorman waits in the doorway, holding the guest's coat. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+      <circle cx="7" cy="7" r="3.2" fill="#e8574a"/>
+    </pattern>
+    <pattern id="dotsBlue" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <circle cx="6" cy="6" r="2.6" fill="#3a6ea5"/>
+    </pattern>
+    <pattern id="dotsYellow" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="8" r="4.5" fill="#f2c14e"/>
+    </pattern>
+    <filter id="ink">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="11" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="2.5"/>
+    </filter>
+    <filter id="paper" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="2" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.38  0 0 0 0 0.25  0 0 0 0.12 0" result="tint"/>
+      <feComposite in="tint" in2="SourceGraphic" operator="over"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#paper)">
+  <rect width="1600" height="900" fill="#f6eedc"/>
+
+  <!-- PANEL 1 -->
+  <g filter="url(#ink)">
+    <rect x="40" y="40" width="660" height="820" fill="#fbf5e6" stroke="#1b1b1b" stroke-width="8"/>
+    <rect x="40" y="40" width="660" height="820" fill="url(#dotsYellow)" opacity="0.35"/>
+    <!-- door frame -->
+    <rect x="380" y="200" width="270" height="610" fill="#fbf5e6" stroke="#1b1b1b" stroke-width="7"/>
+    <rect x="395" y="215" width="240" height="595" fill="url(#dotsBlue)" opacity="0.55"/>
+    <!-- host, at left, holding the door -->
+    <g stroke="#1b1b1b" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M150 810 L170 560 Q 210 520 250 560 L270 810 Z" fill="#3a6ea5"/>
+      <circle cx="210" cy="500" r="52" fill="#fbf5e6"/>
+      <path d="M182 492 q6 -6 12 0 M226 492 q6 -6 12 0" fill="none"/>
+      <path d="M195 525 q15 10 30 0" fill="none"/>
+      <path d="M255 600 L 380 560" fill="none"/>
+    </g>
+    <!-- guest, in the doorway, with a small suitcase -->
+    <g stroke="#1b1b1b" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M455 810 L470 560 Q 515 520 560 560 L575 810 Z" fill="#e8574a"/>
+      <path d="M455 810 L470 560 Q 515 520 560 560 L575 810 Z" fill="url(#dots)" opacity="0.6"/>
+      <circle cx="515" cy="495" r="50" fill="#fbf5e6"/>
+      <path d="M470 470 Q 515 420 560 470 Z" fill="#1b1b1b"/>
+      <circle cx="497" cy="498" r="5" fill="#1b1b1b"/>
+      <circle cx="533" cy="498" r="5" fill="#1b1b1b"/>
+      <path d="M495 522 q20 18 40 0" fill="none"/>
+      <path d="M470 600 L 430 700" fill="none"/>
+      <rect x="390" y="700" width="80" height="58" rx="8" fill="#f2c14e"/>
+      <path d="M415 700 v-14 h30 v14" fill="none"/>
+    </g>
+    <!-- speech balloon -->
+    <g stroke="#1b1b1b" stroke-width="6">
+      <path d="M330 100 H 660 Q 680 100 680 120 V 250 Q 680 270 660 270 H 540 L 520 330 L 495 270 H 330 Q 310 270 310 250 V 120 Q 310 100 330 100 Z" fill="#ffffff"/>
+    </g>
+    <text x="495" y="172" text-anchor="middle" font-family="'Comic Sans MS', 'Trebuchet MS', sans-serif" font-size="44" font-weight="700" fill="#1b1b1b">ONLY A FEW</text>
+    <text x="495" y="228" text-anchor="middle" font-family="'Comic Sans MS', 'Trebuchet MS', sans-serif" font-size="44" font-weight="700" fill="#1b1b1b">DAYS!</text>
+  </g>
+
+  <!-- PANEL 2 -->
+  <g filter="url(#ink)">
+    <rect x="740" y="40" width="820" height="820" fill="#fbf5e6" stroke="#1b1b1b" stroke-width="8"/>
+    <!-- caption box -->
+    <rect x="740" y="40" width="250" height="70" fill="#f2c14e" stroke="#1b1b1b" stroke-width="6"/>
+    <text x="865" y="90" text-anchor="middle" font-family="'Comic Sans MS', 'Trebuchet MS', sans-serif" font-size="38" font-weight="700" fill="#1b1b1b">LATER...</text>
+    <!-- wall with pictures hung -->
+    <rect x="748" y="118" width="804" height="540" fill="url(#dotsYellow)" opacity="0.3"/>
+    <g stroke="#1b1b1b" stroke-width="5">
+      <rect x="820" y="180" width="110" height="80" fill="#3a6ea5"/>
+      <rect x="960" y="160" width="80" height="110" fill="#e8574a"/>
+      <rect x="1070" y="190" width="130" height="70" fill="#f2c14e"/>
+      <path d="M840 240 l25 -30 l20 18 l25 -28" fill="none" stroke="#fbf5e6"/>
+    </g>
+    <!-- floor -->
+    <rect x="748" y="658" width="804" height="194" fill="#d9c8a3"/>
+    <rect x="748" y="658" width="804" height="194" fill="url(#dots)" opacity="0.18"/>
+    <!-- open, empty suitcase and boxes -->
+    <g stroke="#1b1b1b" stroke-width="5" stroke-linejoin="round">
+      <rect x="790" y="740" width="150" height="70" fill="#f2c14e"/>
+      <path d="M790 740 L 810 680 H 960 L 940 740" fill="#f6dd8c"/>
+      <rect x="960" y="700" width="110" height="110" fill="#c7925a"/>
+      <path d="M960 735 h110" fill="none"/>
+      <rect x="985" y="620" width="80" height="80" fill="#c7925a"/>
+    </g>
+    <!-- armchair with the guest, at ease -->
+    <g stroke="#1b1b1b" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M1080 820 V 560 Q 1080 520 1120 520 H 1260 Q 1300 520 1300 560 V 820 Z" fill="#3a6ea5"/>
+      <rect x="1060" y="650" width="60" height="170" rx="20" fill="#2c5683"/>
+      <rect x="1260" y="650" width="60" height="170" rx="20" fill="#2c5683"/>
+      <path d="M1130 700 L1140 600 Q 1190 560 1240 600 L1250 700 Z" fill="#e8574a"/>
+      <path d="M1130 700 L1140 600 Q 1190 560 1240 600 L1250 700 Z" fill="url(#dots)" opacity="0.6"/>
+      <circle cx="1190" cy="545" r="48" fill="#fbf5e6"/>
+      <path d="M1146 522 Q 1190 474 1234 522 Z" fill="#1b1b1b"/>
+      <path d="M1168 548 q8 -6 16 0 M1198 548 q8 -6 16 0" fill="none"/>
+      <path d="M1172 570 q18 12 36 0" fill="none"/>
+      <path d="M1150 700 L1110 760 L1150 780 M1230 700 L1270 760 L1230 780" fill="none"/>
+      <!-- slippers -->
+      <ellipse cx="1150" cy="790" rx="30" ry="12" fill="#f2c14e"/>
+      <ellipse cx="1230" cy="790" rx="30" ry="12" fill="#f2c14e"/>
+    </g>
+    <!-- open doorway at right, with a big doorman holding the guest's coat -->
+    <rect x="1360" y="300" width="190" height="510" fill="#1b1b1b"/>
+    <g stroke="#1b1b1b" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M1380 810 L1395 470 Q 1455 420 1515 470 L1530 810 Z" fill="#5b5b5b"/>
+      <circle cx="1455" cy="390" r="56" fill="#fbf5e6"/>
+      <rect x="1405" y="330" width="100" height="26" fill="#1b1b1b"/>
+      <path d="M1428 392 h18 M1466 392 h18" fill="none"/>
+      <path d="M1435 425 h40" fill="none"/>
+      <!-- the coat, held out -->
+      <path d="M1330 520 L1395 500 L1400 700 L1325 700 Z" fill="#e8574a"/>
+      <path d="M1330 520 L1395 500 L1400 700 L1325 700 Z" fill="url(#dots)" opacity="0.6"/>
+      <path d="M1362 515 v185" fill="none"/>
+    </g>
+    <!-- a small "ahem" puff -->
+    <g stroke="#1b1b1b" stroke-width="5" fill="#ffffff">
+      <path d="M1300 300 q-20 -40 20 -50 q20 -40 60 -10 q40 -10 40 30 q30 30 -10 50 q-20 30 -60 10 q-40 20 -50 -30 z"/>
+    </g>
+    <text x="1350" y="305" text-anchor="middle" font-family="'Comic Sans MS', 'Trebuchet MS', sans-serif" font-size="34" font-weight="700" fill="#1b1b1b">AHEM.</text>
+  </g>
+  </g>
+</svg>

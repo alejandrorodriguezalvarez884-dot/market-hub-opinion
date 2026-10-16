@@ -1,0 +1,125 @@
+<!-- Cross-stitch on linen: a roller coaster has climbed its third and highest hill, a small car at the very top; behind it, two earlier hills with their drops, and ahead, the track falls away out of the frame. Each cell of the grid is one stitch. -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; height: 100%; background: #e9dfc8; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1600" height="900"></canvas>
+<script>
+window.coverReady = new Promise((done) => {
+  const c = document.getElementById("c");
+  const g = c.getContext("2d");
+  const W = 1600, H = 900, S = 16;           // one stitch is 16 px
+  const COLS = W / S, ROWS = Math.ceil(H / S);   // 100 x 57 (last row partly hidden)
+
+  // A seeded random, so the cloth comes out the same every time.
+  let seed = 41;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+
+  // Linen: a woven ground with slubs.
+  g.fillStyle = "#ece2cb";
+  g.fillRect(0, 0, W, H);
+  for (let y = 0; y < H; y += 4) {
+    g.fillStyle = `rgba(150,128,90,${0.05 + rnd() * 0.06})`;
+    g.fillRect(0, y, W, 1);
+  }
+  for (let x = 0; x < W; x += 4) {
+    g.fillStyle = `rgba(150,128,90,${0.04 + rnd() * 0.05})`;
+    g.fillRect(x, 0, 1, H);
+  }
+  // The holes of the aida grid.
+  g.fillStyle = "rgba(120,98,64,0.35)";
+  for (let y = 0; y <= H; y += S) for (let x = 0; x <= W; x += S) g.fillRect(x - 1, y - 1, 2, 2);
+
+  // The track, as a height for every column: three hills, each higher, then a drop out of frame.
+  const hills = [
+    { at: 14, top: 36, half: 9 },
+    { at: 38, top: 26, half: 11 },
+    { at: 66, top: 9, half: 14 },
+  ];
+  const ground = 50;
+  const trackRow = (col) => {
+    let best = ground;
+    for (const h of hills) {
+      const d = Math.abs(col - h.at) / h.half;
+      if (d < 1.6) best = Math.min(best, h.top + (ground - h.top) * Math.min(1, Math.pow(d / 1.6, 1.6) * 1.08));
+    }
+    if (col > 66) best = Math.max(best, 9 + (col - 66) * 3.2);   // the steep drop after the last top
+    return Math.min(best, ROWS + 2);
+  };
+
+  const grid = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+  const set = (r, col, color) => { if (r >= 0 && r < ROWS && col >= 0 && col < COLS) grid[r][col] = color; };
+
+  // Sky: a few stitched clouds and a pale sun.
+  const cloud = (r0, c0, w) => { for (let i = 0; i < w; i++) { set(r0, c0 + i, "#ffffff"); if (i > 1 && i < w - 2) set(r0 - 1, c0 + i, "#ffffff"); } };
+  cloud(8, 8, 9); cloud(5, 28, 7); cloud(12, 82, 10); cloud(4, 88, 6);
+  for (let r = -3; r <= 3; r++) for (let q = -3; q <= 3; q++) if (r * r + q * q <= 10) set(6 + r, 50 + q, "#f2c14e");
+
+  // Supports under the track: thin vertical lines every few columns, and cross braces.
+  for (let col = 2; col < COLS; col++) {
+    const top = Math.round(trackRow(col));
+    if (col % 4 === 0) for (let r = top + 1; r < ground + 4; r++) set(r, col, "#8b6a4f");
+    if (col % 8 === 2) for (let k = 0; k < 6; k++) set(top + 3 + k, col + k % 4, "#a98467");
+  }
+
+  // The track itself: two rails, dark red, one stitch apart.
+  for (let col = 0; col < COLS; col++) {
+    const r = Math.round(trackRow(col));
+    set(r, col, "#a4161a");
+    set(r + 1, col, "#6a040f");
+    const next = Math.round(trackRow(col + 1));
+    for (let k = Math.min(r, next); k <= Math.max(r, next); k++) set(k, col, "#a4161a");
+  }
+
+  // The small car at the top of the last hill, with a blue body and yellow wheels.
+  const top = Math.round(trackRow(66));
+  for (let q = -3; q <= 3; q++) { set(top - 1, 66 + q, "#1d4e89"); set(top - 2, 66 + q, "#1d4e89"); }
+  for (let q = -2; q <= 2; q++) set(top - 3, 66 + q, "#3a7ca5");
+  set(top - 4, 64, "#e85d04"); set(top - 4, 68, "#e85d04");
+  set(top - 1, 64, "#f2c14e"); set(top - 1, 68, "#f2c14e");
+
+  // Grass along the bottom.
+  for (let r = ground + 4; r < ROWS; r++) for (let col = 0; col < COLS; col++) set(r, col, (col + r) % 3 ? "#4f772d" : "#90a955");
+
+  // A stitched border, two colours.
+  for (let col = 0; col < COLS; col++) { set(0, col, "#1d4e89"); set(ROWS - 1, col, "#1d4e89"); set(1, col, col % 2 ? "#f2c14e" : null); }
+  for (let r = 0; r < ROWS; r++) { set(r, 0, "#1d4e89"); set(r, COLS - 1, "#1d4e89"); }
+
+  // Stitch: two crossing strokes per cell, a little uneven, with a sheen on the top stroke.
+  const shade = (hex, f) => {
+    const n = parseInt(hex.slice(1), 16);
+    const ch = (v) => Math.max(0, Math.min(255, Math.round(v * f)));
+    return `rgb(${ch(n >> 16)},${ch((n >> 8) & 255)},${ch(n & 255)})`;
+  };
+  g.lineCap = "round";
+  for (let r = 0; r < ROWS; r++) for (let col = 0; col < COLS; col++) {
+    const color = grid[r][col];
+    if (!color) continue;
+    const x = col * S, y = r * S, p = 2.5, j = () => (rnd() - 0.5) * 1.6;
+    g.lineWidth = 5.2;
+    g.strokeStyle = shade(color, 0.78);
+    g.beginPath(); g.moveTo(x + p + j(), y + S - p + j()); g.lineTo(x + S - p + j(), y + p + j()); g.stroke();
+    g.strokeStyle = shade(color, 1.0);
+    g.beginPath(); g.moveTo(x + p + j(), y + p + j()); g.lineTo(x + S - p + j(), y + S - p + j()); g.stroke();
+    g.lineWidth = 1.4;
+    g.strokeStyle = "rgba(255,255,255,0.28)";
+    g.beginPath(); g.moveTo(x + p + 2, y + p + 1); g.lineTo(x + S - p - 1, y + S - p - 2); g.stroke();
+  }
+
+  // A soft vignette, as if the hoop shades the edges.
+  const v = g.createRadialGradient(W / 2, H / 2, H * 0.35, W / 2, H / 2, H * 0.95);
+  v.addColorStop(0, "rgba(0,0,0,0)");
+  v.addColorStop(1, "rgba(60,40,20,0.28)");
+  g.fillStyle = v;
+  g.fillRect(0, 0, W, H);
+  done();
+});
+</script>
+</body>
+</html>

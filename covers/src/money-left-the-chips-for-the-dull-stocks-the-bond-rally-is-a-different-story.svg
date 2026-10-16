@@ -1,0 +1,144 @@
+<!-- Art deco travel poster: a crowd leaves a glittering tower of tiles through a great revolving door and walks toward a row of plain stone houses; a few stop at a fork in the path, where a lighthouse stands far off in the mist. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#10223f"/>
+      <stop offset="0.55" stop-color="#1d3b5c"/>
+      <stop offset="1" stop-color="#e9c77b"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3d58a"/>
+      <stop offset="0.5" stop-color="#d9a441"/>
+      <stop offset="1" stop-color="#a8742a"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2a9d8f" stop-opacity="0.85"/>
+      <stop offset="0.5" stop-color="#9fd8cf" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#2a9d8f" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4ead5" stop-opacity="0"/>
+      <stop offset="1" stop-color="#f4ead5" stop-opacity="0.75"/>
+    </linearGradient>
+    <pattern id="tiles" width="34" height="34" patternUnits="userSpaceOnUse">
+      <rect width="34" height="34" fill="#16304f"/>
+      <rect x="4" y="4" width="26" height="26" fill="#2a9d8f"/>
+      <rect x="9" y="9" width="16" height="16" fill="#0f2238"/>
+      <rect x="13" y="13" width="8" height="8" fill="#f3d58a"/>
+      <path d="M4 10h-3M4 17h-3M4 24h-3M30 10h3M30 17h3M30 24h3" stroke="#d9a441" stroke-width="2"/>
+    </pattern>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>
+      <feColorMatrix type="saturate" values="0" in="n" result="g"/>
+      <feComponentTransfer in="g" result="g2"><feFuncA type="table" tableValues="0 0.16"/></feComponentTransfer>
+      <feComposite in="g2" in2="SourceGraphic" operator="over"/>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="30"/></filter>
+    <filter id="wobble">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="3" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="3"/>
+    </filter>
+    <g id="walker">
+      <circle cx="0" cy="-46" r="8"/>
+      <path d="M-9 -36 h18 l4 26 h-6 l-2 30 h-5 l-1 -26 l-1 26 h-5 l-2 -30 h-6 z"/>
+    </g>
+  </defs>
+
+  <g filter="url(#grain)">
+  <rect width="1600" height="900" fill="url(#sky)"/>
+
+  <!-- sunburst behind the door -->
+  <g transform="translate(800 560)" opacity="0.55">
+    <g fill="#f3d58a">
+      <path d="M0 0 L-40 -620 L40 -620 Z"/>
+      <path d="M0 0 L-40 -620 L40 -620 Z" transform="rotate(-20)"/>
+      <path d="M0 0 L-40 -620 L40 -620 Z" transform="rotate(20)"/>
+      <path d="M0 0 L-40 -620 L40 -620 Z" transform="rotate(-40)"/>
+      <path d="M0 0 L-40 -620 L40 -620 Z" transform="rotate(40)"/>
+      <path d="M0 0 L-40 -620 L40 -620 Z" transform="rotate(-60)"/>
+      <path d="M0 0 L-40 -620 L40 -620 Z" transform="rotate(60)"/>
+    </g>
+  </g>
+
+  <!-- far lighthouse in the mist, right -->
+  <g transform="translate(1440 470)" filter="url(#wobble)">
+    <path d="M0 -159 L-260 -190 L-260 -128 Z" fill="#fff6d6" opacity="0.22"/>
+    <path d="M-14 0 L-10 -150 L10 -150 L14 0 Z" fill="#f4ead5"/>
+    <rect x="-10" y="-120" width="20" height="14" fill="#e76f51"/>
+    <rect x="-10" y="-80" width="20" height="14" fill="#e76f51"/>
+    <rect x="-14" y="-168" width="28" height="18" fill="#2a9d8f"/>
+    <path d="M-16 -168 L0 -186 L16 -168 Z" fill="#e76f51"/>
+    <circle cx="0" cy="-159" r="6" fill="#fff6d6"/>
+  </g>
+  <ellipse cx="1420" cy="470" rx="260" ry="90" fill="#f4ead5" opacity="0.35" filter="url(#soft)"/>
+
+  <!-- the tower of tiles, left -->
+  <g filter="url(#wobble)">
+    <path d="M150 820 L150 210 L210 150 L330 150 L390 210 L390 820 Z" fill="url(#tiles)" stroke="url(#gold)" stroke-width="10"/>
+    <path d="M190 150 L270 40 L350 150 Z" fill="url(#gold)"/>
+    <path d="M270 40 L270 -10" stroke="#d9a441" stroke-width="6"/>
+    <path d="M60 820 L60 380 L150 330 L150 820 Z" fill="url(#tiles)" stroke="url(#gold)" stroke-width="8"/>
+  </g>
+
+  <!-- ground -->
+  <path d="M0 760 Q 800 720 1600 760 L1600 900 L0 900 Z" fill="#0f2238"/>
+  <!-- the path: from the tower, through the door, to a fork -->
+  <path d="M380 840 Q 600 800 720 790 L880 790 Q 1000 792 1080 800 Q 1180 812 1260 860 L1600 900 L0 900 L0 860 Z" fill="#e9c77b" opacity="0.9"/>
+
+  <!-- plain stone houses, right -->
+  <g filter="url(#wobble)">
+    <g fill="#f4ead5" stroke="#a8742a" stroke-width="6">
+      <path d="M1110 790 V 640 L1180 590 L1250 640 V 790 Z"/>
+      <path d="M1270 795 V 610 L1350 560 L1430 610 V 795 Z"/>
+      <path d="M1450 800 V 650 L1515 610 L1580 650 V 800 Z"/>
+    </g>
+    <g fill="#16304f">
+      <rect x="1160" y="700" width="40" height="90"/>
+      <rect x="1328" y="690" width="44" height="105"/>
+      <rect x="1495" y="715" width="38" height="85"/>
+      <rect x="1290" y="635" width="28" height="28"/>
+      <rect x="1382" y="635" width="28" height="28"/>
+    </g>
+    <path d="M1335 600 h30 M1350 585 v30" stroke="#e76f51" stroke-width="8"/>
+  </g>
+
+  <!-- the revolving door -->
+  <g transform="translate(800 0)" filter="url(#wobble)">
+    <path d="M-190 790 V 380 A 190 190 0 0 1 190 380 V 790 Z" fill="#0f2238" stroke="url(#gold)" stroke-width="16"/>
+    <path d="M-150 790 V 400 A 150 150 0 0 1 150 400 V 790 Z" fill="url(#glass)" stroke="#d9a441" stroke-width="6"/>
+    <g stroke="#f3d58a" stroke-width="10" fill="none">
+      <path d="M0 790 V 300"/>
+      <path d="M-140 560 L 140 520"/>
+    </g>
+    <ellipse cx="0" cy="790" rx="160" ry="22" fill="#d9a441"/>
+    <ellipse cx="0" cy="300" rx="160" ry="20" fill="#d9a441"/>
+    <g fill="#f3d58a">
+      <path d="M-150 270 L0 200 L150 270 Z"/>
+      <rect x="-12" y="150" width="24" height="60"/>
+    </g>
+  </g>
+
+  <!-- walkers -->
+  <g fill="#0f2238">
+    <use href="#walker" transform="translate(430 832) scale(1.05)"/>
+    <use href="#walker" transform="translate(520 818)"/>
+    <use href="#walker" transform="translate(600 806) scale(0.95)"/>
+    <use href="#walker" transform="translate(760 788) scale(0.9)" opacity="0.7"/>
+    <use href="#walker" transform="translate(940 792) scale(0.9)"/>
+    <use href="#walker" transform="translate(1010 796) scale(0.9)"/>
+    <use href="#walker" transform="translate(1110 812) scale(0.92)"/>
+    <use href="#walker" transform="translate(1190 834) scale(0.95)"/>
+  </g>
+  <!-- two who stopped at the fork, looking at the lighthouse -->
+  <g fill="#e76f51">
+    <use href="#walker" transform="translate(1075 800) scale(0.88)"/>
+    <use href="#walker" transform="translate(1100 796) scale(0.84)"/>
+  </g>
+  <text x="1052" y="735" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="700" fill="#f3d58a">?</text>
+
+  <!-- poster border -->
+  <rect x="18" y="18" width="1564" height="864" fill="none" stroke="#f3d58a" stroke-width="6"/>
+  <rect x="32" y="32" width="1536" height="836" fill="none" stroke="#f3d58a" stroke-width="2"/>
+
+  </g>
+</svg>
