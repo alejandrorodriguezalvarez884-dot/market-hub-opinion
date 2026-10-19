@@ -5,7 +5,7 @@ kind: Column
 tags: Markets, Technology, AI infrastructure
 tickers: META, CRWV
 published: 2026-10-19T06:51:00Z
-cover: Chalk on a blackboard: a table loaded with server racks; one leg is cracked and tied with string, while an oil barrel is wedged under the other, sound leg.
+cover: A pencil sketch on crumpled paper: a man who sat back in a blue chair now leans forward on its edge, a blue arrow marking the move.
 sources:
   - Meta reports second quarter 2026 results, Form 8-K exhibit 99.1 (SEC) | https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm
   - Meta to announce third quarter 2026 results (Meta) | https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-to-Announce-Third-Quarter-2026-Results/default.aspx

@@ -21,6 +21,11 @@ Reglas que no se negocian:
   servicio ni modelo de generación de imágenes (ni Hugging Face ni otro) y no se coge ninguna
   imagen de fuera. Cada portada, de un estilo distinto a las anteriores. Sin logotipos, sin caras
   de personas reales, sin flechas de sube o baja.
+  **Excepción, una sola:** la portada de `this-mornings-rebound-is-about-oil-last-weeks-selloff-was-about-cash`
+  (2026-10-19) es una ilustración del usuario, que dijo que es suya y que tiene derecho a usarla
+  ("La imagen es mía… Pónla como portada de este artículo y apunta la excepción"). Su JPEG no
+  tiene dibujo en `covers/src/` a propósito, para que `make covers` no lo sobrescriba. No sirve
+  de precedente: otra imagen de fuera necesita el permiso del usuario para ese artículo.
 - **Un artículo de un lector solo se publica cuando el usuario lo dice.** Los lectores los envían
   desde el portal (`/opinion/submit/`); el portal no publica nada: los guarda en un bucket.
   `make inbox` dice cuáles hay; el usuario los revisa y dice cuál sale. Entonces `make fetch ID=<id>` lo trae a
