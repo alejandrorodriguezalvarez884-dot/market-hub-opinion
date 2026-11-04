@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <!-- Shadow-puppet theatre: on a lamp-lit cloth screen between two curtains, a puppet tightrope walker
+       crosses a canyon on a sagging wire with a basket of coins (cut-outs the light shines through) on
+       its head; on the wide, flat ledge across the gap a queue of small puppets waits at a ticket booth
+       under a sun puppet hung from above. Rods run down from the puppets to the stage. -->
+  <defs>
+    <radialGradient id="lamp" cx="0.5" cy="0.42" r="0.75">
+      <stop offset="0" stop-color="#fde7b4"/>
+      <stop offset="0.35" stop-color="#f4b35a"/>
+      <stop offset="0.75" stop-color="#d9622b"/>
+      <stop offset="1" stop-color="#8f2e1c"/>
+    </radialGradient>
+    <linearGradient id="curtain" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3a0c14"/>
+      <stop offset="0.25" stop-color="#6b1a24"/>
+      <stop offset="0.5" stop-color="#3f0d16"/>
+      <stop offset="0.75" stop-color="#6b1a24"/>
+      <stop offset="1" stop-color="#3a0c14"/>
+    </linearGradient>
+    <pattern id="folds" width="70" height="900" patternUnits="userSpaceOnUse">
+      <rect width="70" height="900" fill="url(#curtain)"/>
+    </pattern>
+    <!-- The cloth: a fine weave and a little unevenness in the light. -->
+    <filter id="cloth" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9 0.85" numOctaves="2" seed="11" result="weave"/>
+      <feColorMatrix in="weave" type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.2  0 0 0 0 0.1  0 0 0 0.35 0" result="tint"/>
+      <feComposite in="tint" in2="SourceGraphic" operator="in" result="grain"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="2" seed="3" result="blotch"/>
+      <feColorMatrix in="blotch" type="matrix" values="0 0 0 0 0.5  0 0 0 0 0.2  0 0 0 0 0.05  0 0 0 0.25 0" result="blot"/>
+      <feComposite in="blot" in2="SourceGraphic" operator="in" result="blots"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="blots"/><feMergeNode in="grain"/></feMerge>
+    </filter>
+    <!-- A shadow is never quite sharp: the puppets sit a finger's width from the cloth. -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="1.6"/>
+    </filter>
+    <filter id="ghost" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <filter id="velvet" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="5" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.3 0" result="d"/>
+      <feComposite in="d" in2="SourceGraphic" operator="in" result="dd"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="dd"/></feMerge>
+    </filter>
+    <clipPath id="screen"><rect x="150" y="70" width="1300" height="720"/></clipPath>
+
+    <!-- One small queuing puppet, feet at (0,0). -->
+    <g id="person">
+      <circle cx="0" cy="-74" r="11"/>
+      <path d="M-4 -64 h8 l2 6 c9 3 13 9 14 18 l1 22 h-7 l-2 -18 l-2 0 l0 22 l3 34 h-8 l-4 -30 l-4 30 h-8 l3 -34 l0 -22 l-2 0 l-2 18 h-7 l1 -22 c1 -9 5 -15 14 -18 z"/>
+    </g>
+  </defs>
+
+  <!-- Stage and house -->
+  <rect width="1600" height="900" fill="#1a0a0a"/>
+  <rect x="150" y="70" width="1300" height="720" fill="url(#lamp)" filter="url(#cloth)"/>
+
+  <g clip-path="url(#screen)">
+    <!-- The second lamp: a faint, larger, softer double of every shadow. -->
+    <g fill="#7a2a14" opacity="0.28" filter="url(#ghost)" transform="translate(14 8)">
+      <path d="M150 520 L230 505 L300 512 L380 498 L455 506 L520 520 L540 560 L528 620 L548 700 L536 790 L150 790 Z"/>
+      <path d="M1450 552 L1075 552 L1060 600 L1074 660 L1056 730 L1070 790 L1450 790 Z"/>
+    </g>
+
+    <g fill="#140b08" filter="url(#shadow)">
+      <!-- Far crags in the canyon, fainter -->
+      <path d="M560 790 L600 700 L640 720 L690 640 L730 690 L780 655 L840 720 L900 680 L950 730 L1010 690 L1040 790 Z" fill="#5c2216" opacity="0.55"/>
+
+      <!-- The near cliff: broken, uneven -->
+      <path d="M150 520 L230 505 L300 512 L380 498 L455 506 L520 520 L540 560 L528 620 L548 700 L536 790 L150 790 Z"/>
+      <!-- The far ledge: wide and flat -->
+      <path d="M1450 552 L1075 552 L1060 600 L1074 660 L1056 730 L1070 790 L1450 790 Z"/>
+
+      <!-- Posts and the sagging wire -->
+      <rect x="494" y="440" width="8" height="82"/>
+      <rect x="1078" y="472" width="8" height="82"/>
+      <path d="M498 446 Q790 560 1082 478" fill="none" stroke="#140b08" stroke-width="3"/>
+
+      <!-- The walker, feet on the wire near (760, 509), the pole drooping at both ends -->
+      <g>
+        <path d="M750 430 L744 470 L748 508 L756 508 L754 470 L760 438 Z"/>
+        <path d="M770 430 L778 468 L770 508 L778 508 L788 468 L780 430 Z"/>
+        <ellipse cx="750" cy="509" rx="10" ry="3.5"/>
+        <ellipse cx="776" cy="509" rx="10" ry="3.5"/>
+        <path d="M742 368 C744 392 746 414 748 434 L782 434 C784 414 784 392 782 368 C772 362 752 362 742 368 Z"/>
+        <rect x="756" y="352" width="10" height="14"/>
+        <circle cx="761" cy="347" r="13"/>
+        <path d="M744 370 L700 396 L703 402 L748 380 Z"/>
+        <path d="M780 370 L820 396 L817 402 L776 380 Z"/>
+        <path d="M560 412 Q760 384 960 412" fill="none" stroke="#140b08" stroke-width="5"/>
+        <!-- A wide basket on the head, heaped with coins -->
+        <path d="M694 300 L828 300 L800 336 L722 336 Z"/>
+      </g>
+
+      <!-- The sun, a hanging puppet with rays -->
+      <g transform="translate(1190 190)">
+        <rect x="-2" y="-130" width="4" height="70"/>
+        <circle r="58"/>
+        <g>
+          <path d="M0 -96 L10 -64 L-10 -64 Z"/>
+          <path d="M0 96 L10 64 L-10 64 Z"/>
+          <path d="M-96 0 L-64 10 L-64 -10 Z"/>
+          <path d="M96 0 L64 10 L64 -10 Z"/>
+          <path d="M68 -68 L52 -38 L38 -52 Z"/>
+          <path d="M-68 -68 L-52 -38 L-38 -52 Z"/>
+          <path d="M68 68 L52 38 L38 52 Z"/>
+          <path d="M-68 68 L-52 38 L-38 52 Z"/>
+        </g>
+      </g>
+
+      <!-- Ticket booth with an awning -->
+      <path d="M1290 552 L1290 452 L1278 452 L1298 420 L1376 420 L1376 552 Z"/>
+
+      <!-- The queue -->
+      <use href="#person" transform="translate(1108 552) scale(0.92)"/>
+      <use href="#person" transform="translate(1144 552)"/>
+      <use href="#person" transform="translate(1180 552) scale(0.96)"/>
+      <use href="#person" transform="translate(1214 552) scale(1.04)"/>
+      <!-- the one at the window, an arm held out to pay -->
+      <use href="#person" transform="translate(1256 552)"/>
+      <path d="M1264 500 l40 -14 l2 6 l-40 15 z"/>
+    </g>
+
+    <!-- Cut-outs: light through the puppets -->
+    <g fill="#fde7b4">
+      <!-- weave of the basket -->
+      <path d="M710 310 H812 M716 318 H806 M722 326 H800" stroke="#fde7b4" stroke-width="2" fill="none" opacity="0.8"/>
+      <circle cx="1190" cy="190" r="26" opacity="0.95"/>
+      <g transform="translate(1190 190)">
+        <circle cx="42" cy="0" r="5"/><circle cx="-42" cy="0" r="5"/><circle cx="0" cy="42" r="5"/><circle cx="0" cy="-42" r="5"/>
+        <circle cx="30" cy="30" r="5"/><circle cx="-30" cy="30" r="5"/><circle cx="30" cy="-30" r="5"/><circle cx="-30" cy="-30" r="5"/>
+      </g>
+      <!-- the booth's window -->
+      <rect x="1306" y="466" width="54" height="36" rx="3"/>
+    </g>
+    <!-- The heap of coins above the basket's rim: dark discs, their edges cut so the light shows -->
+    <g fill="#140b08" stroke="#fde7b4" stroke-width="2.2" filter="url(#shadow)">
+      <ellipse cx="720" cy="296" rx="16" ry="6"/>
+      <ellipse cx="804" cy="296" rx="16" ry="6"/>
+      <ellipse cx="742" cy="292" rx="17" ry="6"/>
+      <ellipse cx="782" cy="292" rx="17" ry="6"/>
+      <ellipse cx="762" cy="290" rx="17" ry="6"/>
+      <ellipse cx="732" cy="282" rx="16" ry="6"/>
+      <ellipse cx="792" cy="282" rx="16" ry="6"/>
+      <ellipse cx="752" cy="276" rx="16" ry="6"/>
+      <ellipse cx="774" cy="276" rx="16" ry="6"/>
+      <ellipse cx="762" cy="266" rx="16" ry="6"/>
+      <circle cx="744" cy="258" r="13"/>
+      <circle cx="781" cy="256" r="13"/>
+      <circle cx="762" cy="244" r="14"/>
+    </g>
+    <!-- Rivets at the walker's joints, pierced -->
+    <g fill="#f4b35a">
+      <circle cx="749" cy="470" r="2.2"/><circle cx="781" cy="468" r="2.2"/>
+      <circle cx="746" cy="374" r="2.2"/><circle cx="778" cy="374" r="2.2"/>
+    </g>
+  </g>
+
+  <!-- Control rods running down past the screen to the puppeteers' hands -->
+  <g stroke="#2b1710" stroke-width="2.5" stroke-linecap="round" opacity="0.7">
+    <line x1="702" y1="400" x2="590" y2="900"/>
+    <line x1="818" y1="400" x2="930" y2="900"/>
+  </g>
+
+  <!-- Curtains and valance -->
+  <g filter="url(#velvet)">
+    <path d="M0 0 H210 C190 200 230 420 200 600 C180 720 230 820 250 900 H0 Z" fill="url(#folds)"/>
+    <path d="M1600 0 H1390 C1410 200 1370 420 1400 600 C1420 720 1370 820 1350 900 H1600 Z" fill="url(#folds)"/>
+    <path d="M0 0 H1600 V70 C1560 110 1520 110 1480 70 C1440 110 1400 110 1360 70 C1320 110 1280 110 1240 70 C1200 110 1160 110 1120 70 C1080 110 1040 110 1000 70 C960 110 920 110 880 70 C840 110 800 110 760 70 C720 110 680 110 640 70 C600 110 560 110 520 70 C480 110 440 110 400 70 C360 110 320 110 280 70 C240 110 200 110 160 70 C120 110 80 110 40 70 C20 90 0 90 0 80 Z" fill="#4a1019"/>
+    <path d="M0 74 C40 112 80 112 120 74" fill="none" stroke="#c8913f" stroke-width="3" opacity="0"/>
+  </g>
+  <!-- Gold cord along the valance -->
+  <path d="M0 80 C20 92 30 92 40 72 C80 112 120 112 160 72 C200 112 240 112 280 72 C320 112 360 112 400 72 C440 112 480 112 520 72 C560 112 600 112 640 72 C680 112 720 112 760 72 C800 112 840 112 880 72 C920 112 960 112 1000 72 C1040 112 1080 112 1120 72 C1160 112 1200 112 1240 72 C1280 112 1320 112 1360 72 C1400 112 1440 112 1480 72 C1520 112 1560 112 1600 72" fill="none" stroke="#c8913f" stroke-width="3"/>
+
+  <!-- Stage lip -->
+  <rect x="0" y="790" width="1600" height="110" fill="#2a120c"/>
+  <rect x="0" y="790" width="1600" height="6" fill="#c8913f" opacity="0.7"/>
+</svg>
