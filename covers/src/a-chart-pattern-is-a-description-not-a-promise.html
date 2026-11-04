@@ -1,0 +1,196 @@
+<!doctype html>
+<!-- An engraved star atlas plate, tinted by hand: a field of scattered stars on aged paper, a
+     curved graticule, and two "constellations" joined by dotted red-brown lines, a W on the left
+     and a head between two shoulders on the right, each over a pale wash of gold. A pair of brass
+     dividers lies across the right-hand figure, measuring. The shapes are lines someone drew
+     between points; the stars do not know about them. -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  html, body { margin: 0; height: 100%; background: #e8dcbf; overflow: hidden; }
+  svg { display: block; width: 100vw; height: 100vh; }
+</style>
+</head>
+<body>
+<svg id="plate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Paper grain, multiplied over everything. -->
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="7" result="n" />
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.42  0 0 0 0 0.33  0 0 0 0 0.2  0 0 0 0.55 0" />
+    </filter>
+    <!-- Fibres: long soft streaks. -->
+    <filter id="fibre" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.09" numOctaves="2" seed="3" result="n" />
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.5  0 0 0 0 0.4  0 0 0 0 0.25  0 0 0 0.35 -0.08" />
+    </filter>
+    <!-- The engraver's line is never quite straight, and the ink takes unevenly. -->
+    <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="11" result="t" />
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="d" />
+      <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="5" result="speck" />
+      <feColorMatrix in="speck" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.9" result="mask" />
+      <feComposite in="d" in2="mask" operator="in" />
+    </filter>
+    <!-- A watercolour wash: soft, blotchy edge, uneven body. -->
+    <filter id="wash" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="4" seed="21" result="t" />
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="38" xChannelSelector="R" yChannelSelector="B" result="d" />
+      <feGaussianBlur in="d" stdDeviation="3" result="b" />
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="9" result="body" />
+      <feColorMatrix in="body" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0.42" result="bm" />
+      <feComposite in="b" in2="bm" operator="in" />
+    </filter>
+    <radialGradient id="fox" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#8a5a2b" stop-opacity="0.22" />
+      <stop offset="0.7" stop-color="#8a5a2b" stop-opacity="0.08" />
+      <stop offset="1" stop-color="#8a5a2b" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="edge" cx="50%" cy="50%" r="75%">
+      <stop offset="0.6" stop-color="#6b4a22" stop-opacity="0" />
+      <stop offset="1" stop-color="#6b4a22" stop-opacity="0.32" />
+    </radialGradient>
+    <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e2bd6a" />
+      <stop offset="0.5" stop-color="#c8973a" />
+      <stop offset="1" stop-color="#8f6420" />
+    </linearGradient>
+    <pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <line x1="0" y1="0" x2="0" y2="5" stroke="#231c17" stroke-width="1.1" />
+    </pattern>
+    <clipPath id="sky"><rect x="96" y="86" width="1408" height="728" /></clipPath>
+  </defs>
+
+  <!-- paper -->
+  <rect width="1600" height="900" fill="#eadfc4" />
+  <rect width="1600" height="900" filter="url(#fibre)" />
+
+  <!-- the hand-tinted sky, laid a little off the engraved plate -->
+  <g filter="url(#wash)" opacity="0.42">
+    <rect x="110" y="96" width="1392" height="716" fill="#7f9aa6" />
+  </g>
+
+  <!-- gold washes behind the two figures, with the darker rim a wash leaves as it dries -->
+  <g filter="url(#wash)" opacity="0.42">
+    <path d="M175 270 C 200 200 330 230 420 250 C 520 270 640 190 745 215 C 800 260 720 470 650 620 C 560 680 400 670 300 640 C 200 600 150 400 175 270 Z"
+          fill="#d9a441" stroke="#b07a22" stroke-width="10" stroke-opacity="0.7" />
+    <path d="M850 680 C 840 520 930 360 1010 340 C 1080 300 1120 220 1210 225 C 1300 240 1350 330 1420 370 C 1500 420 1520 560 1490 690 C 1300 720 1050 720 850 680 Z"
+          fill="#d9a441" stroke="#b07a22" stroke-width="10" stroke-opacity="0.7" />
+  </g>
+
+  <g id="engraved" filter="url(#ink)"></g>
+
+  <!-- foxing and age -->
+  <g>
+    <circle cx="1390" cy="170" r="70" fill="url(#fox)" />
+    <circle cx="260" cy="760" r="95" fill="url(#fox)" />
+    <circle cx="905" cy="120" r="40" fill="url(#fox)" />
+    <circle cx="1210" cy="790" r="55" fill="url(#fox)" />
+  </g>
+  <rect width="1600" height="900" filter="url(#grain)" style="mix-blend-mode: multiply" />
+  <rect width="1600" height="900" fill="url(#edge)" />
+</svg>
+
+<script>
+  const NS = "http://www.w3.org/2000/svg";
+  const g = document.getElementById("engraved");
+  const INK = "#231c17", RED = "#9a3d26";
+  const el = (name, attrs, parent = g) => {
+    const e = document.createElementNS(NS, name);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+    parent.appendChild(e);
+    return e;
+  };
+  // A seeded random, so the sky is the same every time it is drawn.
+  let seed = 20231020;
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+
+  // A star as an atlas engraves it: a dot with rays, more rays for brighter ones.
+  const star = (x, y, r, rays, parent = g) => {
+    let d = "";
+    for (let i = 0; i < rays * 2; i++) {
+      const a = (Math.PI * i) / rays - Math.PI / 2;
+      const rr = i % 2 ? r * 0.36 : r;
+      d += (i ? "L" : "M") + (x + rr * Math.cos(a)).toFixed(1) + " " + (y + rr * Math.sin(a)).toFixed(1);
+    }
+    el("path", { d: d + "Z", fill: INK }, parent);
+  };
+
+  // The plate's frame: a double rule and a border of degree marks, alternately filled.
+  el("rect", { x: 78, y: 68, width: 1444, height: 764, fill: "none", stroke: INK, "stroke-width": 3 });
+  el("rect", { x: 96, y: 86, width: 1408, height: 728, fill: "none", stroke: INK, "stroke-width": 1.4 });
+  const tick = (x, y, w, h, i) => el("rect", { x, y, width: w, height: h, fill: i % 2 ? INK : "none", stroke: INK, "stroke-width": 0.8 });
+  for (let i = 0, x = 96; x < 1504; i++, x += 44) { tick(x, 74, Math.min(44, 1504 - x), 8, i); tick(x, 818, Math.min(44, 1504 - x), 8, i + 1); }
+  for (let i = 0, y = 86; y < 814; i++, y += 44) { tick(84, y, 8, Math.min(44, 814 - y), i); tick(1508, y, 8, Math.min(44, 814 - y), i + 1); }
+
+  // Inside the plate: the graticule, then the stars.
+  const sky = el("g", { "clip-path": "url(#sky)" });
+  const C = [800, 2700];
+  for (let r = 1900; r <= 2700; r += 130) {
+    el("circle", { cx: C[0], cy: C[1], r, fill: "none", stroke: INK, "stroke-width": 0.9, opacity: 0.55 }, sky);
+  }
+  for (let a = -22; a <= 22; a += 5.5) {
+    const t = ((a - 90) * Math.PI) / 180;
+    el("line", { x1: C[0] + 1700 * Math.cos(t), y1: C[1] + 1700 * Math.sin(t), x2: C[0] + 2900 * Math.cos(t), y2: C[1] + 2900 * Math.sin(t),
+                 stroke: INK, "stroke-width": 0.9, opacity: 0.55 }, sky);
+  }
+  // The ecliptic, a dashed band across the sky.
+  el("path", { d: "M80 760 Q 800 470 1520 620", fill: "none", stroke: INK, "stroke-width": 1.1, "stroke-dasharray": "2 7", opacity: 0.7 }, sky);
+
+  // The background stars: many faint, a few bright.
+  for (let i = 0; i < 420; i++) {
+    const x = 100 + rnd() * 1400, y = 90 + rnd() * 720, m = rnd();
+    if (m < 0.75) el("circle", { cx: x, cy: y, r: (0.8 + rnd() * 1.2).toFixed(2), fill: INK }, sky);
+    else star(x, y, 3 + m * 6, m > 0.95 ? 6 : 4, sky);
+  }
+
+  // The two figures. Dotted lines between their stars, in the red-brown of the old charts.
+  const W = [[200, 300], [335, 575], [470, 395], [610, 585], [735, 250]];
+  const HS = [[880, 640], [990, 405], [1092, 532], [1200, 268], [1310, 540], [1405, 412], [1470, 660]];
+  const figure = (pts) => {
+    el("polyline", { points: pts.map((p) => p.join(",")).join(" "), fill: "none", stroke: RED, "stroke-width": 5,
+                     "stroke-dasharray": "1 10", "stroke-linecap": "round", "stroke-linejoin": "round" });
+    pts.forEach(([x, y], i) => star(x, y, 15 + (i % 2 ? 2 : 5), 8));
+  };
+  figure(W);
+  figure(HS);
+  // The neckline, faint, as a pencil line someone added later.
+  el("line", { x1: 1030, y1: 529, x2: 1500, y2: 548, stroke: RED, "stroke-width": 1.4, "stroke-dasharray": "14 9", opacity: 0.75 });
+
+  // A pair of dividers, its points on the head and on the neckline below it.
+  const hinge = [960, 402], tipA = [1200, 284], tipB = [1200, 528];
+  const leg = (tip) => {
+    const dx = tip[0] - hinge[0], dy = tip[1] - hinge[1], L = Math.hypot(dx, dy);
+    const ux = dx / L, uy = dy / L, nx = -uy, ny = ux, w = 9;
+    const p = (s, k) => `${(hinge[0] + ux * s + nx * k).toFixed(1)},${(hinge[1] + uy * s + ny * k).toFixed(1)}`;
+    const d = `M${p(0, w)} L${p(L * 0.82, w * 0.55)} L${p(L - 2, 0.8)} L${p(L - 2, -0.8)} L${p(L * 0.82, -w * 0.55)} L${p(0, -w)} Z`;
+    el("path", { d, fill: "url(#brass)", stroke: INK, "stroke-width": 1.6 });
+    el("path", { d, fill: "url(#hatch)", opacity: 0.35 });
+    // The steel point.
+    el("line", { x1: p(L * 0.82, 0).split(",")[0], y1: p(L * 0.82, 0).split(",")[1], x2: tip[0], y2: tip[1], stroke: "#4a4038", "stroke-width": 2.2 });
+  };
+  leg(tipA);
+  leg(tipB);
+  el("circle", { cx: hinge[0], cy: hinge[1], r: 20, fill: "url(#brass)", stroke: INK, "stroke-width": 1.8 });
+  el("circle", { cx: hinge[0], cy: hinge[1], r: 20, fill: "url(#hatch)", opacity: 0.3 });
+  el("line", { x1: hinge[0] - 9, y1: hinge[1] - 3, x2: hinge[0] + 9, y2: hinge[1] + 3, stroke: INK, "stroke-width": 2.4 });
+  el("path", { d: `M${hinge[0] - 6} ${hinge[1] - 19} Q ${hinge[0] - 26} ${hinge[1] - 60} ${hinge[0] - 2} ${hinge[1] - 70} Q ${hinge[0] + 22} ${hinge[1] - 60} ${hinge[0] + 6} ${hinge[1] - 19}`,
+               fill: "url(#brass)", stroke: INK, "stroke-width": 1.6 });
+
+  // A small compass rose in the lower left corner of the plate, as the atlases had.
+  const rose = [190, 735];
+  for (let i = 0; i < 8; i++) {
+    const a = (Math.PI * i) / 4, r = i % 2 ? 26 : 48, s = 7;
+    const tip = [rose[0] + r * Math.cos(a), rose[1] + r * Math.sin(a)];
+    const l = [rose[0] + s * Math.cos(a + Math.PI / 2), rose[1] + s * Math.sin(a + Math.PI / 2)];
+    const rr = [rose[0] + s * Math.cos(a - Math.PI / 2), rose[1] + s * Math.sin(a - Math.PI / 2)];
+    el("path", { d: `M${rose.join(" ")} L${l.join(" ")} L${tip.join(" ")} Z`, fill: INK });
+    el("path", { d: `M${rose.join(" ")} L${rr.join(" ")} L${tip.join(" ")} Z`, fill: "#eadfc4", stroke: INK, "stroke-width": 1 });
+  }
+  el("circle", { cx: rose[0], cy: rose[1], r: 34, fill: "none", stroke: INK, "stroke-width": 1 });
+
+  window.coverReady = Promise.resolve();
+</script>
+</body>
+</html>
