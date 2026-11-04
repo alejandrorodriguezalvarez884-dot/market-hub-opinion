@@ -1,0 +1,255 @@
+<!-- Dutch Golden Age still life in oil: on a dark table, lit from the upper left, a brass balance weighs a computer chip against a stack of gold coins, a magnifying glass beside it. The clay pipe and the bowl of soapy water that such paintings used for bubbles lie unused: no bubble anywhere. Canvas weave, glazes and craquelure are drawn with filters. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <radialGradient id="ground" cx="0.28" cy="0.18" r="0.95">
+      <stop offset="0" stop-color="#4e3822"/>
+      <stop offset="0.3" stop-color="#2a1d14"/>
+      <stop offset="0.75" stop-color="#1a120c"/>
+      <stop offset="1" stop-color="#0d0906"/>
+    </radialGradient>
+    <linearGradient id="tabletop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b2716"/>
+      <stop offset="1" stop-color="#5c3e22"/>
+    </linearGradient>
+    <linearGradient id="tablefront" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a1a0e"/>
+      <stop offset="1" stop-color="#120b06"/>
+    </linearGradient>
+    <linearGradient id="brassV" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4a3310"/>
+      <stop offset="0.3" stop-color="#e6c477"/>
+      <stop offset="0.45" stop-color="#fff0bd"/>
+      <stop offset="0.7" stop-color="#a77a2a"/>
+      <stop offset="1" stop-color="#3a270c"/>
+    </linearGradient>
+    <linearGradient id="brassH" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6dc95"/>
+      <stop offset="0.5" stop-color="#b8892f"/>
+      <stop offset="1" stop-color="#4a3310"/>
+    </linearGradient>
+    <radialGradient id="dish" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#ffeab0"/>
+      <stop offset="0.4" stop-color="#c39233"/>
+      <stop offset="1" stop-color="#4f3611"/>
+    </radialGradient>
+    <linearGradient id="coin" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6b4a12"/>
+      <stop offset="0.35" stop-color="#f3cf6a"/>
+      <stop offset="0.55" stop-color="#fff2b8"/>
+      <stop offset="1" stop-color="#7a5414"/>
+    </linearGradient>
+    <linearGradient id="chiptop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3c4448"/>
+      <stop offset="1" stop-color="#15191b"/>
+    </linearGradient>
+    <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0f2a20"/>
+      <stop offset="0.25" stop-color="#2d5a44"/>
+      <stop offset="0.45" stop-color="#14362a"/>
+      <stop offset="0.65" stop-color="#3a6b52"/>
+      <stop offset="0.85" stop-color="#173a2c"/>
+      <stop offset="1" stop-color="#0b1f17"/>
+    </linearGradient>
+    <radialGradient id="pewter" cx="0.3" cy="0.3" r="0.9">
+      <stop offset="0" stop-color="#d6d6cf"/>
+      <stop offset="0.45" stop-color="#8a8c86"/>
+      <stop offset="1" stop-color="#2e302d"/>
+    </radialGradient>
+    <linearGradient id="soap" x1="0" y1="0" x2="1" y2="0.3">
+      <stop offset="0" stop-color="#cfd4cc"/>
+      <stop offset="0.35" stop-color="#e9e6d6"/>
+      <stop offset="0.55" stop-color="#d8cfe2"/>
+      <stop offset="0.75" stop-color="#d4e4d8"/>
+      <stop offset="1" stop-color="#9fa59c"/>
+    </linearGradient>
+    <linearGradient id="clay" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4ecd9"/>
+      <stop offset="1" stop-color="#a39577"/>
+    </linearGradient>
+    <radialGradient id="glass" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#fff8e6" stop-opacity="0.55"/>
+      <stop offset="0.3" stop-color="#d8c49a" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#5c3e22" stop-opacity="0.05"/>
+    </radialGradient>
+    <radialGradient id="light" cx="0.25" cy="0.15" r="0.75">
+      <stop offset="0" stop-color="#ffe2a8" stop-opacity="0.32"/>
+      <stop offset="0.5" stop-color="#ffd18a" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" cx="0.45" cy="0.45" r="0.75">
+      <stop offset="0.55" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.7"/>
+    </radialGradient>
+
+    <!-- brush wobble: every edge drifts a little, as paint does -->
+    <filter id="paint" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.03" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="soft2"><feGaussianBlur stdDeviation="3"/></filter>
+    <!-- canvas grain -->
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.5  0 0 0 0 0.45  0 0 0 0 0.38  0 0 0 0.9 -0.35"/>
+    </filter>
+    <!-- craquelure: thin dark veins from a sharpened noise -->
+    <filter id="crack" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="turbulence" baseFrequency="0.045" numOctaves="2" seed="21" result="t"/>
+      <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -22 0 0 0 1.6" />
+    </filter>
+    <filter id="mottle" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.006" numOctaves="3" seed="11"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0 0.02  1.6 0 0 0 -0.75"/>
+    </filter>
+    <pattern id="weave" width="6" height="6" patternUnits="userSpaceOnUse">
+      <path d="M0 1.5h6M0 4.5h6" stroke="#fff3d6" stroke-opacity="0.05" stroke-width="1.2"/>
+      <path d="M1.5 0v6M4.5 0v6" stroke="#000" stroke-opacity="0.07" stroke-width="1.2"/>
+    </pattern>
+    <pattern id="grainwood" width="220" height="14" patternUnits="userSpaceOnUse">
+      <path d="M0 4 C60 2 120 7 220 4 M0 10 C80 12 150 8 220 11" stroke="#1d1209" stroke-opacity="0.35" stroke-width="1.5" fill="none"/>
+    </pattern>
+  </defs>
+
+  <!-- the dark ground -->
+  <rect width="1600" height="900" fill="url(#ground)"/>
+  <rect width="1600" height="610" filter="url(#mottle)" opacity="0.8"/>
+  <!-- a hint of a niche wall: the light falls off a stone edge at the right -->
+  <path d="M1240 0 L1260 600 L1600 600 L1600 0 Z" fill="#000" opacity="0.25"/>
+
+  <g filter="url(#paint)">
+    <!-- table -->
+    <path d="M0 610 L1600 590 L1600 770 L0 770 Z" fill="url(#tabletop)"/>
+    <path d="M0 610 L1600 590 L1600 770 L0 770 Z" fill="url(#grainwood)"/>
+    <path d="M0 770 L1600 770 L1600 900 L0 900 Z" fill="url(#tablefront)"/>
+    <path d="M0 770 L1600 770" stroke="#a07848" stroke-opacity="0.45" stroke-width="3"/>
+
+    <!-- green cloth thrown over the right end, hanging in folds over the edge -->
+    <path d="M1130 600 C1200 588 1320 592 1600 588 L1600 900 L1290 900 C1300 860 1270 830 1240 800 C1210 780 1190 772 1160 770 C1150 720 1135 650 1130 600 Z" fill="url(#cloth)"/>
+    <path d="M1240 800 C1300 830 1320 870 1330 900" stroke="#4f8a6a" stroke-opacity="0.45" stroke-width="7" fill="none"/>
+    <path d="M1380 780 C1400 830 1395 870 1400 900" stroke="#081a12" stroke-opacity="0.7" stroke-width="16" fill="none"/>
+    <path d="M1470 770 C1500 820 1490 860 1510 900" stroke="#5c9a78" stroke-opacity="0.35" stroke-width="9" fill="none"/>
+    <path d="M1160 770 C1240 765 1380 770 1600 760" stroke="#081a12" stroke-opacity="0.6" stroke-width="5" fill="none"/>
+
+    <!-- shadows on the table -->
+    <ellipse cx="860" cy="712" rx="230" ry="30" fill="#000" opacity="0.55" filter="url(#soft)"/>
+    <ellipse cx="380" cy="770" rx="150" ry="26" fill="#000" opacity="0.5" filter="url(#soft)"/>
+    <ellipse cx="1370" cy="700" rx="130" ry="22" fill="#000" opacity="0.5" filter="url(#soft)"/>
+
+    <!-- the balance: foot and column -->
+    <ellipse cx="800" cy="700" rx="150" ry="28" fill="#3a270c"/>
+    <path d="M650 700 L650 682 C650 668 950 668 950 682 L950 700 C950 714 650 714 650 700 Z" fill="url(#brassV)"/>
+    <path d="M700 676 L700 658 C700 646 900 646 900 658 L900 676 Z" fill="url(#brassV)"/>
+    <path d="M760 650 C760 620 780 610 786 590 L814 590 C820 610 840 620 840 650 Z" fill="url(#brassV)"/>
+    <rect x="788" y="236" width="24" height="358" fill="url(#brassV)"/>
+    <ellipse cx="800" cy="440" rx="20" ry="7" fill="url(#brassV)"/>
+    <ellipse cx="800" cy="300" rx="18" ry="6" fill="url(#brassV)"/>
+
+    <!-- the beam, tipped: the chip's side rides high -->
+    <g transform="rotate(4 800 232)">
+      <path d="M520 226 C620 218 700 222 800 224 C900 222 980 218 1080 226 L1080 238 C980 244 900 240 800 240 C700 240 620 244 520 238 Z" fill="url(#brassH)"/>
+      <circle cx="520" cy="232" r="9" fill="url(#brassH)"/>
+      <circle cx="1080" cy="232" r="9" fill="url(#brassH)"/>
+      <!-- pointer -->
+      <path d="M794 226 L800 150 L806 226 Z" fill="url(#brassV)"/>
+    </g>
+    <circle cx="800" cy="232" r="16" fill="url(#dish)"/>
+    <circle cx="800" cy="232" r="5" fill="#2a1a08"/>
+
+    <!-- left pan (high): chains and dish -->
+    <g stroke="#c9a456" stroke-width="2.2" stroke-dasharray="5 3" opacity="0.9">
+      <line x1="521" y1="212" x2="420" y2="452"/>
+      <line x1="521" y1="212" x2="622" y2="452"/>
+      <line x1="521" y1="212" x2="530" y2="446"/>
+    </g>
+    <path d="M410 452 C430 486 612 486 632 452 Z" fill="url(#dish)"/>
+    <ellipse cx="521" cy="452" rx="111" ry="16" fill="#e8c674"/>
+    <ellipse cx="521" cy="452" rx="100" ry="12" fill="#8e6824"/>
+
+    <path d="M440 449 C470 444 500 443 520 444" stroke="#fff6d0" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8"/>
+    <!-- the chip sitting in the left pan -->
+    <g>
+      <path d="M462 444 L578 444 L578 454 L462 454 Z" fill="#0d1012"/>
+      <path d="M474 414 L590 414 L578 444 L462 444 Z" fill="url(#chiptop)"/>
+      <path d="M503 421 L555 421 L549 437 L497 437 Z" fill="#59666c"/>
+      <path d="M503 421 L555 421 L553 426 L501 426 Z" fill="#9aa7a8" opacity="0.6"/>
+      <g fill="#d9b25a">
+        <rect x="468" y="446" width="5" height="9"/><rect x="482" y="446" width="5" height="9"/>
+        <rect x="496" y="446" width="5" height="9"/><rect x="510" y="446" width="5" height="9"/>
+        <rect x="524" y="446" width="5" height="9"/><rect x="538" y="446" width="5" height="9"/>
+        <rect x="552" y="446" width="5" height="9"/><rect x="566" y="446" width="5" height="9"/>
+      </g>
+      <path d="M474 414 L590 414" stroke="#c8d3d2" stroke-opacity="0.55" stroke-width="2"/>
+    </g>
+
+    <!-- right pan (low): chains and dish -->
+    <g stroke="#c9a456" stroke-width="2.2" stroke-dasharray="5 3" opacity="0.9">
+      <line x1="1079" y1="251" x2="978" y2="532"/>
+      <line x1="1079" y1="251" x2="1180" y2="532"/>
+      <line x1="1079" y1="251" x2="1088" y2="526"/>
+    </g>
+    <path d="M968 532 C988 566 1170 566 1190 532 Z" fill="url(#dish)"/>
+    <ellipse cx="1079" cy="532" rx="111" ry="16" fill="#e8c674"/>
+    <ellipse cx="1079" cy="532" rx="100" ry="12" fill="#8e6824"/>
+
+    <path d="M998 529 C1028 524 1058 523 1078 524" stroke="#fff6d0" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8"/>
+    <!-- the stack of coins in the right pan -->
+    <g>
+      <g id="c">
+        <path d="M1024 528 L1024 518 A55 12 0 0 0 1134 518 L1134 528 A55 12 0 0 1 1024 528 Z" fill="url(#coin)"/>
+        <ellipse cx="1079" cy="518" rx="55" ry="12" fill="#f0cd72"/>
+        <ellipse cx="1079" cy="518" rx="44" ry="8" fill="none" stroke="#a87c22" stroke-width="1.5"/>
+      </g>
+      <use href="#c" transform="translate(2 -11)"/>
+      <use href="#c" transform="translate(-1 -22)"/>
+      <use href="#c" transform="translate(3 -33)"/>
+      <use href="#c" transform="translate(0 -44)"/>
+      <use href="#c" transform="translate(-2 -55)"/>
+      <use href="#c" transform="translate(1 -66)"/>
+    </g>
+
+    <!-- two coins on the table -->
+    <ellipse cx="1000" cy="742" rx="40" ry="10" fill="#6b4a12"/>
+    <ellipse cx="1000" cy="738" rx="40" ry="10" fill="#e9c467"/>
+    <ellipse cx="1046" cy="760" rx="38" ry="9" fill="#6b4a12"/>
+    <ellipse cx="1046" cy="756" rx="38" ry="9" fill="#d8b154"/>
+
+    <!-- the magnifying glass lying on the table -->
+    <g>
+      <path d="M318 760 L170 836" stroke="#2a170a" stroke-width="22" stroke-linecap="round"/>
+      <path d="M318 760 L170 836" stroke="#6b4426" stroke-width="12" stroke-linecap="round"/>
+      <path d="M312 756 L250 788" stroke="#b08454" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+      <ellipse cx="400" cy="732" rx="92" ry="48" fill="url(#tabletop)"/>
+      <ellipse cx="400" cy="732" rx="92" ry="48" fill="url(#grainwood)" transform="translate(400 732) scale(1.8) translate(-400 -732)"/>
+      <ellipse cx="400" cy="732" rx="92" ry="48" fill="url(#glass)"/>
+      <ellipse cx="400" cy="732" rx="92" ry="48" fill="none" stroke="url(#brassH)" stroke-width="13"/>
+      <path d="M340 712 C360 698 392 692 420 694" stroke="#fffbe8" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.75"/>
+    </g>
+
+    <!-- the pewter bowl of soapy water: still, and not a bubble in it -->
+    <g>
+      <path d="M1270 660 C1276 712 1300 724 1370 724 C1440 724 1464 712 1470 660 Z" fill="url(#pewter)"/>
+      <ellipse cx="1370" cy="660" rx="100" ry="22" fill="#4a4c48"/>
+      <ellipse cx="1370" cy="662" rx="88" ry="17" fill="url(#soap)"/>
+      <path d="M1300 658 C1330 652 1360 652 1392 655" stroke="#ffffff" stroke-opacity="0.55" stroke-width="3" fill="none"/>
+      <ellipse cx="1370" cy="728" rx="40" ry="6" fill="#3a3c38"/>
+    </g>
+
+    <!-- the clay pipe, laid down on the cloth -->
+    <g>
+      <path d="M1180 800 C1260 790 1380 778 1520 752" stroke="#7d6f55" stroke-width="10" stroke-linecap="round" fill="none"/>
+      <path d="M1180 798 C1260 788 1380 776 1520 750" stroke="url(#clay)" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M1150 772 C1146 800 1160 816 1184 812 C1196 808 1198 790 1194 772 Z" fill="url(#clay)"/>
+      <ellipse cx="1172" cy="772" rx="22" ry="7" fill="#2a1a10"/>
+    </g>
+  </g>
+
+  <!-- glazes: the window light, the warm varnish, the dark corners -->
+  <rect width="1600" height="900" fill="url(#light)" style="mix-blend-mode:screen"/>
+  <rect width="1600" height="900" fill="#7a4a10" opacity="0.10" style="mix-blend-mode:multiply"/>
+  <rect width="1600" height="900" fill="url(#vignette)"/>
+  <!-- canvas, grain and cracks -->
+  <rect width="1600" height="900" fill="url(#weave)"/>
+  <rect width="1600" height="900" filter="url(#grain)" opacity="0.35" style="mix-blend-mode:overlay"/>
+  <rect width="1600" height="900" filter="url(#crack)" opacity="0.10"/>
+</svg>
