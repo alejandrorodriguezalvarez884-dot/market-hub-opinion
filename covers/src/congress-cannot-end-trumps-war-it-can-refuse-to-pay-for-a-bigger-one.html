@@ -1,0 +1,265 @@
+<!doctype html>
+<!-- A Roman floor mosaic: in the foreground a fat coin purse, its drawstrings pulled tight by two rows
+     of small figures leaning away from it; far out at sea a lone warship rows on, one helmsman at its
+     stern oar. The scene is painted flat on a hidden canvas, then laid in stone tesserae: big tiles where
+     the colour is even, smaller ones where there is detail, each a little crooked and a little off in
+     tone, with grey mortar between them. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; height: 100%; background: #b6aa92; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+</style>
+</head>
+<body>
+<canvas id="out" width="1600" height="900"></canvas>
+<script>
+const W = 1600, H = 900;
+const C = {
+  stone: "#e8dec6",   // travertine
+  mortar: "#b3a78f",
+  ochre: "#c6974a",
+  terra: "#a3452f",
+  slate: "#3f5964",
+  sea: "#57817f",
+  black: "#2a2420",
+};
+
+// A seeded random, so the floor is laid the same way every time.
+let seed = 20261104;
+const rnd = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+
+// ---- 1. The cartoon: the scene painted flat --------------------------------------------------
+const sc = document.createElement("canvas");
+sc.width = W; sc.height = H;
+const g = sc.getContext("2d");
+g.lineCap = "round"; g.lineJoin = "round";
+
+// sky and sea and the floor they stand on
+g.fillStyle = C.stone; g.fillRect(0, 0, W, H);
+const HORIZON = 330, SHORE = 610;
+g.fillStyle = C.sea; g.fillRect(0, HORIZON, W, SHORE - HORIZON);
+// rows of wave crests, the way a mosaicist lays water
+g.strokeStyle = C.slate; g.lineWidth = 11;
+for (let y = HORIZON + 44, row = 0; y < SHORE - 20; y += 56, row++) {
+  g.beginPath();
+  for (let x = -60 + (row % 2) * 60; x < W + 120; x += 120) {
+    g.moveTo(x, y);
+    g.quadraticCurveTo(x + 30, y - 24, x + 60, y);
+  }
+  g.stroke();
+}
+// the shore
+g.fillStyle = C.ochre; g.fillRect(0, SHORE, W, H - SHORE);
+g.strokeStyle = C.black; g.lineWidth = 8;
+g.beginPath(); g.moveTo(0, SHORE); g.lineTo(W, SHORE); g.stroke();
+
+// ---- the warship, far out, rowing away to the left
+function ship(x, y, s) {
+  g.save(); g.translate(x, y); g.scale(s, s);
+  // oars into the water
+  g.strokeStyle = C.black; g.lineWidth = 9;
+  for (let i = 0; i < 9; i++) {
+    const ox = -110 + i * 26;
+    g.beginPath(); g.moveTo(ox, 10); g.lineTo(ox - 22, 52); g.stroke();
+  }
+  // the stern oar and its helmsman
+  g.lineWidth = 7;
+  g.beginPath(); g.moveTo(150, -22); g.lineTo(182, 46); g.stroke();
+  g.fillStyle = C.black;
+  g.beginPath(); g.arc(140, -60, 10, 0, Math.PI * 2); g.fill();
+  g.fillRect(132, -50, 16, 30);
+  // the hull, its ram forward (left) and its stern curling up (right)
+  g.beginPath();
+  g.moveTo(-190, 4); g.lineTo(-150, -8); g.lineTo(130, -14);
+  g.quadraticCurveTo(190, -20, 196, -70);
+  g.quadraticCurveTo(206, -10, 150, 22);
+  g.lineTo(-140, 22); g.lineTo(-190, 14); g.closePath();
+  g.fill();
+  g.strokeStyle = C.ochre; g.lineWidth = 8;
+  g.beginPath(); g.moveTo(-140, 4); g.lineTo(140, 0); g.stroke();
+  // mast and a square sail
+  g.strokeStyle = C.black; g.lineWidth = 12;
+  g.beginPath(); g.moveTo(0, -12); g.lineTo(0, -190); g.stroke();
+  g.lineWidth = 6;
+  g.beginPath(); g.moveTo(-80, -178); g.lineTo(80, -178); g.stroke();
+  g.fillStyle = C.terra;
+  g.beginPath();
+  g.moveTo(-74, -174); g.lineTo(74, -174);
+  g.quadraticCurveTo(64, -110, 70, -52); g.lineTo(-70, -52);
+  g.quadraticCurveTo(-60, -110, -74, -174); g.closePath(); g.fill();
+  g.strokeStyle = C.black; g.lineWidth = 6; g.stroke();
+  g.strokeStyle = C.stone; g.lineWidth = 10;
+  g.beginPath(); g.moveTo(-70, -116); g.lineTo(70, -116); g.stroke();
+  g.restore();
+}
+ship(300, 356, 1.2);
+
+// ---- the purse
+const PX = 800, NECK = 450;
+function purse() {
+  // the bag
+  g.fillStyle = C.terra; g.strokeStyle = C.black; g.lineWidth = 14;
+  g.beginPath();
+  g.moveTo(PX - 34, NECK);
+  g.bezierCurveTo(PX - 120, NECK + 40, PX - 215, NECK + 120, PX - 210, NECK + 220);
+  g.bezierCurveTo(PX - 205, NECK + 320, PX - 120, NECK + 352, PX, NECK + 352);
+  g.bezierCurveTo(PX + 120, NECK + 352, PX + 205, NECK + 320, PX + 210, NECK + 220);
+  g.bezierCurveTo(PX + 215, NECK + 120, PX + 120, NECK + 40, PX + 34, NECK);
+  g.closePath(); g.fill(); g.stroke();
+  // the gathered folds under the strings
+  g.strokeStyle = "#7c3020"; g.lineWidth = 12;
+  for (const [dx, ex, ey] of [[-20, -120, 250], [-8, -50, 300], [8, 50, 300], [20, 120, 250]]) {
+    g.beginPath(); g.moveTo(PX + dx, NECK + 18);
+    g.quadraticCurveTo(PX + dx * 2, NECK + 120, PX + ex, NECK + ey); g.stroke();
+  }
+  // a band of stone and a coin set on the belly of the bag
+  g.fillStyle = C.ochre; g.strokeStyle = C.black; g.lineWidth = 12;
+  g.beginPath(); g.arc(PX, NECK + 215, 54, 0, Math.PI * 2); g.fill(); g.stroke();
+  g.lineWidth = 10;
+  g.beginPath(); g.arc(PX, NECK + 215, 28, 0, Math.PI * 2); g.stroke();
+  // the ruffle above the neck
+  g.fillStyle = C.terra; g.lineWidth = 12;
+  g.beginPath();
+  g.moveTo(PX - 30, NECK + 4);
+  g.lineTo(PX - 70, NECK - 46); g.lineTo(PX - 34, NECK - 30);
+  g.lineTo(PX - 18, NECK - 66); g.lineTo(PX, NECK - 34);
+  g.lineTo(PX + 22, NECK - 68); g.lineTo(PX + 34, NECK - 30);
+  g.lineTo(PX + 72, NECK - 44); g.lineTo(PX + 30, NECK + 4);
+  g.closePath(); g.fill(); g.stroke();
+  // the knot, pulled tight
+  g.fillStyle = C.black;
+  g.beginPath(); g.ellipse(PX, NECK + 4, 40, 14, 0, 0, Math.PI * 2); g.fill();
+}
+
+// ---- the people pulling the strings, leaning away from the purse
+function puller(x, dir, h) {
+  // dir = -1 leans left (pulling left), +1 leans right
+  const foot = 818;
+  const hip = { x: x - dir * 4, y: foot - h * 0.48 };
+  const neck = { x: hip.x + dir * h * 0.30, y: hip.y - h * 0.34 };
+  g.strokeStyle = C.black; g.lineWidth = 20;
+  // legs: back leg braced, front leg bent
+  g.beginPath(); g.moveTo(hip.x, hip.y); g.lineTo(x + dir * 38, foot); g.stroke();
+  g.beginPath(); g.moveTo(hip.x, hip.y); g.lineTo(x - dir * 22, foot - h * 0.22);
+  g.lineTo(x - dir * 34, foot); g.stroke();
+  // tunic
+  g.fillStyle = C.slate; g.lineWidth = 10;
+  g.beginPath();
+  g.moveTo(neck.x - 16, neck.y); g.lineTo(neck.x + 16, neck.y);
+  g.lineTo(hip.x + 32, hip.y + 30); g.lineTo(hip.x - 32, hip.y + 30);
+  g.closePath(); g.fill(); g.stroke();
+  // head
+  g.fillStyle = C.black;
+  g.beginPath(); g.arc(neck.x + dir * 12, neck.y - 24, 22, 0, Math.PI * 2); g.fill();
+  // arms reaching back toward the purse, to the rope
+  const hand = { x: neck.x - dir * 64, y: neck.y + 28 };
+  g.lineWidth = 17;
+  g.beginPath(); g.moveTo(neck.x, neck.y + 8); g.lineTo(hand.x, hand.y); g.stroke();
+  return hand;
+}
+
+purse();
+for (const dir of [-1, 1]) {
+  const hands = [];
+  for (let i = 0; i < 5; i++) {
+    const x = PX + dir * (300 + i * 104);
+    const h = 180 - i * 4;
+    hands.push(puller(x, dir, h));
+  }
+  // the drawstring: from the knot, out through every pair of hands, taut
+  g.strokeStyle = C.black; g.lineWidth = 13;
+  g.beginPath(); g.moveTo(PX + dir * 34, NECK + 4);
+  for (const hd of hands) g.lineTo(hd.x, hd.y);
+  const last = hands[hands.length - 1];
+  g.lineTo(last.x + dir * 70, last.y + 6);
+  g.quadraticCurveTo(last.x + dir * 96, last.y + 40, last.x + dir * 80, last.y + 90);
+  g.stroke();
+}
+
+// three loose coins on the floor, by the bag
+for (const [cx, cy] of [[PX - 222, 806], [PX + 214, 812], [PX - 168, 822]]) {
+  g.fillStyle = C.ochre; g.strokeStyle = C.black; g.lineWidth = 9;
+  g.beginPath(); g.ellipse(cx, cy, 30, 13, 0, 0, Math.PI * 2); g.fill(); g.stroke();
+}
+
+// ---- the border: black, stone, a band of terracotta steps, black
+function band(inset, w, col) {
+  g.strokeStyle = col; g.lineWidth = w;
+  g.strokeRect(inset + w / 2, inset + w / 2, W - 2 * inset - w, H - 2 * inset - w);
+}
+band(0, 16, C.black);
+band(16, 10, C.stone);
+band(26, 18, C.terra);
+// the steps in the terracotta band
+g.fillStyle = C.stone;
+for (let x = 40; x < W - 40; x += 36) { g.fillRect(x, 30, 12, 10); g.fillRect(x + 18, H - 40, 12, 10); }
+for (let y = 46; y < H - 46; y += 36) { g.fillRect(30, y, 10, 12); g.fillRect(W - 40, y + 18, 10, 12); }
+band(44, 8, C.black);
+
+// ---- 2. Laying the tesserae ------------------------------------------------------------------
+const px = g.getImageData(0, 0, W, H).data;
+const at = (x, y) => {
+  x = Math.max(0, Math.min(W - 1, x | 0)); y = Math.max(0, Math.min(H - 1, y | 0));
+  const i = (y * W + x) * 4; return [px[i], px[i + 1], px[i + 2]];
+};
+const diff = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]);
+
+const out = document.getElementById("out").getContext("2d");
+out.fillStyle = C.mortar; out.fillRect(0, 0, W, H);
+
+
+function tile(x, y, s) {
+  const cx = x + s / 2, cy = y + s / 2;
+  let [r, gg, b] = at(cx, cy);
+  const k = 1 + (rnd() - 0.5) * 0.16;            // each stone a little lighter or darker
+  const t = (rnd() - 0.5) * 10;                  // and a little warmer or cooler
+  r = r * k + t; gg = gg * k; b = b * k - t;
+  const gap = s * 0.12, j = s * 0.08;
+  const q = () => (rnd() - 0.5) * 2 * j;
+  out.beginPath();
+  out.moveTo(x + gap + q(), y + gap + q());
+  out.lineTo(x + s - gap + q(), y + gap + q());
+  out.lineTo(x + s - gap + q(), y + s - gap + q());
+  out.lineTo(x + gap + q(), y + s - gap + q());
+  out.closePath();
+  out.fillStyle = `rgb(${r | 0},${gg | 0},${b | 0})`;
+  out.fill();
+  // light catches the upper edge of the stone
+  out.fillStyle = "rgba(255,248,230,0.10)";
+  out.fillRect(x + gap, y + gap, s - 2 * gap, Math.max(1, s * 0.18));
+}
+
+function lay(x, y, s) {
+  const pts = [at(x + 1, y + 1), at(x + s - 1, y + 1), at(x + 1, y + s - 1), at(x + s - 1, y + s - 1), at(x + s / 2, y + s / 2)];
+  let m = 0;
+  for (let i = 1; i < pts.length; i++) m = Math.max(m, diff(pts[0], pts[i]));
+  if (m > 60 && s > 9) { const h = s / 2; lay(x, y, h); lay(x + h, y, h); lay(x, y + h, h); lay(x + h, y + h, h); }
+  else tile(x, y, s);
+}
+
+// Rows of large stones, each row nudged sideways like a laid floor.
+const S = 14;
+for (let row = 0, y = 0; y < H; row++, y += S) {
+  const off = (row % 2) * (S / 2);
+  for (let x = -off; x < W; x += S) lay(x, y, S);
+}
+
+// ---- 3. The floor itself: grain and wear -------------------------------------------------------
+// grain over everything
+const img = out.getImageData(0, 0, W, H), d = img.data;
+for (let i = 0; i < d.length; i += 4) {
+  const n = (rnd() - 0.5) * 18;
+  d[i] += n; d[i + 1] += n; d[i + 2] += n;
+}
+out.putImageData(img, 0, 0);
+// a soft darkening toward the edges, as on a floor lit from above
+const v = out.createRadialGradient(W / 2, H / 2, 300, W / 2, H / 2, 980);
+v.addColorStop(0, "rgba(0,0,0,0)"); v.addColorStop(1, "rgba(40,28,15,0.28)");
+out.fillStyle = v; out.fillRect(0, 0, W, H);
+
+window.coverReady = Promise.resolve();
+</script>
+</body>
+</html>
